@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { MainLayoutModule } from './main-layout/main-layout.module';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MainLayoutModule } from './main-layout/main-layout.module';
     AppRoutingModule,
     NgbModule,
     SharedModule,
-    MainLayoutModule
+    MainLayoutModule,
+    QuicklinkModule
   ],
   providers: [],
   bootstrap: [AppComponent

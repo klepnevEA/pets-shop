@@ -1,0 +1,35 @@
+<div style="min-height: calc(100vh - 160px)" class="row align-items-center">
+  <div class="col-md-6 offset-md-3">
+    <h1 class="mb-3">Форма авторизации</h1>
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="email">Ваша почта</label>
+        <div class="input-group">
+          <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="text-danger" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+          <div *ngIf="form.get('email')?.errors?.required">Введите Email</div>
+          <div *ngIf="form.get('email')?.errors?.email">Введите корректный Email</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password">Ваш пароль</label>
+        <div class="input-group">
+          <input type="password" class="form-control" id="password"  formControlName="password">
+        </div>
+        <div class="text-danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+          <div *ngIf="form.get('password')?.errors?.required">Введите пароль</div>
+          <div *ngIf="form.get('password')?.errors?.minlength">Минимальная длина пароля {{form.get('password')?.errors?.minlength.requiredLength}} символов</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid || submited">Отправить</button>
+      <button type="reset" class="btn btn-secondary btn-lg btn-block">Очистить</button>
+    </form>
+
+  </div>
+</div>
+
+
+
+

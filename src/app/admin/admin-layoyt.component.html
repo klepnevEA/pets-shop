@@ -1,0 +1,38 @@
+<header class="header mb-3">
+  <div class="container">
+    <div class="row row__container">
+      <div class="col-md-auto mr-auto">
+        <div class="logo">Админка</div>
+      </div>
+      <div class="col-md-auto">
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a routerLink="login" routerLinkActive="active" class="nav__link">login</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink="orders" routerLinkActive="active"  class="nav__link">orders</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink="edit" routerLinkActive="active"  class="nav__link">edit</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink="dashboard" routerLinkActive="active"  class="nav__link">dashboard</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink="product" routerLinkActive="active"  class="nav__link">add-product</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+

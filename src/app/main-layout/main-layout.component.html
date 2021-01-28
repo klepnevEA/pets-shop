@@ -1,3 +1,28 @@
-<app-user-nemu></app-user-nemu>
-<a [routerLink]="['product/5']">product</a>
+<header class="header">
+  <div class="container">
+    <div class="row row__container">
+      <div class="col-mg mr-auto">
+        <div class="logo">Магазин</div>
+      </div>
+      <div class="col-mg">
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a routerLink='' class="nav__link">Котята</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink='' class="nav__link">Собаки</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink='' class="nav__link">Попугаи</a>
+            </li>
+            <li class="nav__item">
+              <a routerLink="/card" class="nav__link">Корзина</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
 <router-outlet></router-outlet>

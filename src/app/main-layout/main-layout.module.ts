@@ -36,7 +36,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [MainLayoutComponent],
   imports: [
-    CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]
