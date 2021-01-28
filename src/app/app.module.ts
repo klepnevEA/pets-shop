@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { MainLayoutModule } from './main-layout/main-layout.module';
 import { QuicklinkModule } from 'ngx-quicklink';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { QuicklinkModule } from 'ngx-quicklink';
     NgbModule,
     SharedModule,
     MainLayoutModule,
-    QuicklinkModule
+    QuicklinkModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent
