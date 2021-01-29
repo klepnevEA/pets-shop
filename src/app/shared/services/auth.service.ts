@@ -1,21 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IUser } from '../interfaces';
-import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { IAuthResponse, IUser } from '../interfaces';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { catchError, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) {}
 
-  login(user: IUser): Observable<any> {
+  public isAuth!: boolean
+
+  private setToken(response: IAuthResponse | any) {
+    if (response) {
+      const expDate = new Date(
+        new Date().getTime() + +response.expiresIn * 1000
+      );
+      localStorage.setItem('firebase-token', response.idToken);
+      localStorage.setItem('firebase-token-exp', expDate.toString());
+      localStorage.setItem('isAuth', 'true');
+    } else {
+      localStorage.clear();
+    }
+  }
+
+  get token() {
+    const expDate = new Date(
+      JSON.parse(localStorage.getItem('firebase-token-exp') || '{}')
+    );
+    if (new Date() > expDate) {
+      this.logout();
+      return null;
+    }
+    return localStorage.getItem('firebase-token');
+  }
+
+  public logout() {
+    this.setToken(null)
+    this.router.navigate(['/admin', 'login'])
+    this.isAuth = !!localStorage.getItem('isAuth')
+  }
+
+  private showError(err : HttpErrorResponse) {
+    console.log(err)
+  }
+
+  public login(user: IUser): Observable<any> {
     return this.http
       .post(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
         user
       )
+      .pipe(
+        tap(this.setToken),
+        catchError(async (err) => this.showError(err)),
+        tap(()=> {
+          this.isAuth = !!localStorage.getItem('isAuth')
+        })
+      );
   }
 }

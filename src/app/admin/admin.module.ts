@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AdminLayoytComponent } from './admin-layoyt.component';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { AdminLayoutComponent } from './admin-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { AuthGuard } from '../shared/auth.guard';
 
 const routes: Routes = [
 
   {
     path: '',
-    component: AdminLayoytComponent, children: [
+    component: AdminLayoutComponent, children: [
       {path: '', redirectTo: './components/admin/login', pathMatch: 'full'},
       {
         path: 'login',
@@ -16,21 +17,29 @@ const routes: Routes = [
       },
       {
         path: 'orders',
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: () => import('./components/orders-page/orders-page.module')
           .then(module => module.OrdersPageModule)
       },
       {
         path: 'edit',
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: () => import('./components/edit-page/edit-page.module')
           .then(module => module.EditPageModule)
       },
       {
         path: 'dashboard',
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: () => import('./components/dashboard-page/dashboard-page.module')
           .then(module => module.DashboardPageModule)
       },
       {
         path: 'product',
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: () => import('./components/add-product-page/add-product-page.module')
           .then(module => module.AddProductPageModule)
       }
@@ -39,11 +48,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AdminLayoytComponent],
+  declarations: [AdminLayoutComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  exports: []
+  exports: [],
+  providers: [AuthGuard]
 })
 export class AdminModule { }
