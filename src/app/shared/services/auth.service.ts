@@ -44,6 +44,7 @@ export class AuthService {
 
   public logout() {
     this.setToken(null)
+    localStorage.clear();
     this.router.navigate(['/admin', 'login'])
     this.isAuth = !!localStorage.getItem('isAuth')
   }

@@ -14,3 +14,12 @@ export interface IAuthResponse {
   refreshToken: string,
   registered: boolean
 }
+
+export interface IProduct {
+  type: string,
+  title: string,
+  photo: string[],
+  info: string,
+  price: string,
+}
+

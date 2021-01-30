@@ -18,28 +18,24 @@ const routes: Routes = [
       {
         path: 'orders',
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
         loadChildren: () => import('./components/orders-page/orders-page.module')
           .then(module => module.OrdersPageModule)
       },
       {
         path: 'edit',
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
         loadChildren: () => import('./components/edit-page/edit-page.module')
           .then(module => module.EditPageModule)
       },
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
         loadChildren: () => import('./components/dashboard-page/dashboard-page.module')
           .then(module => module.DashboardPageModule)
       },
       {
         path: 'product',
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
         loadChildren: () => import('./components/add-product-page/add-product-page.module')
           .then(module => module.AddProductPageModule)
       }
