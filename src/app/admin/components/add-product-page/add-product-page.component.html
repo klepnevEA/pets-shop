@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid">Добавить</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid || submited">Добавить</button>
       <button type="reset" class="btn btn-secondary btn-lg btn-block">Очистить</button>
     </form>
 

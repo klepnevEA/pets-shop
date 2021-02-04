@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Ipet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product-page',
@@ -13,9 +14,13 @@ import { ProductService } from 'src/app/shared/services/product.service';
 export class AddProductPageComponent implements OnInit {
 
   form!: FormGroup
+  public submited: boolean = false
   public pet!: Ipet
 
-  constructor(private petService : ProductService) { }
+  constructor(
+    private petService : ProductService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -32,6 +37,9 @@ export class AddProductPageComponent implements OnInit {
     if (this.form.invalid) {
       return
     }
+
+    this.submited = true
+
     this.pet = {
       type: this.form.value.email,
       title: this.form.value.title,
@@ -42,9 +50,10 @@ export class AddProductPageComponent implements OnInit {
     }
 
     this.petService.addPet(this.pet).subscribe(res => {
-      console.log(res)
+      this.form.reset()
+      this.submited = false
+      console.log('Животное добавлено')
     })
-    console.log(this.form)
   }
 
   editorConfig: AngularEditorConfig = {
