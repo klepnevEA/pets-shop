@@ -4,6 +4,12 @@ export interface IUser {
   returnSecureToken: boolean
 }
 
+export interface IEnvironment {
+    production: boolean;
+    apiKey: string;
+    fbDb: string;
+}
+
 export interface IAuthResponse {
   displayName: string,
   email: string,
@@ -15,11 +21,12 @@ export interface IAuthResponse {
   registered: boolean
 }
 
-export interface IProduct {
+export interface Ipet {
   type: string,
   title: string,
-  photo: string[],
+  photo: string,
   info: string,
   price: string,
+  date: Date
 }
 

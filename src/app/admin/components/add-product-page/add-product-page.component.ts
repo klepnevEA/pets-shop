@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { IProduct } from 'src/app/shared/interfaces';
+import { Ipet } from 'src/app/shared/interfaces';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-add-product-page',
@@ -12,9 +13,9 @@ import { IProduct } from 'src/app/shared/interfaces';
 export class AddProductPageComponent implements OnInit {
 
   form!: FormGroup
+  public pet!: Ipet
 
-
-  constructor() { }
+  constructor(private petService : ProductService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -22,27 +23,69 @@ export class AddProductPageComponent implements OnInit {
       title: new FormControl(null, [Validators.required]),
       photo: new FormControl(null, [Validators.required]),
       info: new FormControl(null, [Validators.required]),
-      price: new FormControl(null, [Validators.required])
+      price: new FormControl(null, [Validators.required]),
     })
 
   }
 
-  addProduct() {
+  addPet() {
     if (this.form.invalid) {
       return
     }
-    const product: IProduct = {
+    this.pet = {
       type: this.form.value.email,
       title: this.form.value.title,
       photo: this.form.value.photo,
       info: this.form.value.info,
       price: this.form.value.price,
+      date: new Date()
     }
 
+    this.petService.addPet(this.pet).subscribe(res => {
+      console.log(res)
+    })
     console.log(this.form)
   }
 
   editorConfig: AngularEditorConfig = {
     editable: true,
+  }
+
+  uploadImage: AngularEditorConfig = {
+    editable: true,
+    toolbarHiddenButtons: [
+      [
+        'undo',
+        'redo',
+        'bold',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'subscript',
+        'superscript',
+        'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull',
+        'indent',
+        'outdent',
+        'insertUnorderedList',
+        'insertOrderedList',
+        'heading',
+        'fontName'
+      ],
+      [
+        'fontSize',
+        'textColor',
+        'backgroundColor',
+        'customClasses',
+        'link',
+        'unlink',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode'
+      ]
+    ]
   };
 }

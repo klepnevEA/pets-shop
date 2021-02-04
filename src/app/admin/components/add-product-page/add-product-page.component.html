@@ -1,7 +1,7 @@
 <div style="min-height: calc(100vh - 160px)" class="row align-items-center">
   <div class="col-md-6 offset-md-3">
     <h1 class="mb-3">Добавить продукт</h1>
-    <form class="form" [formGroup]="form" (ngSubmit)="addProduct()">
+    <form class="form" [formGroup]="form" (ngSubmit)="addPet()">
       <div class="mb-3">
         <label for="type">Выберете категорию</label>
         <div class="input-group">
@@ -30,17 +30,17 @@
       <div class="mb-3">
         <label for="photo">Фотография</label>
         <div class="input-group">
-          <input type="file" class="btn btn-primary" id="photo" formControlName="photo" name="Загрузить фото">
+          <angular-editor class="add-photo" formControlName="photo" [config]="uploadImage"></angular-editor>
         </div>
-        <div class="text-danger" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
-          <div *ngIf="form.get('title')?.errors?.required">Это обязательное поле</div>
+        <div class="text-danger" *ngIf="form.get('photo')?.touched && form.get('photo')?.invalid">
+          <div *ngIf="form.get('photo')?.errors?.required">Это обязательное поле</div>
         </div>
       </div>
 
       <div class="mb-3">
         <label for="info">Описание</label>
         <div>
-          <angular-editor formControlName="info" matInput [config]="editorConfig"></angular-editor>
+          <angular-editor formControlName="info" [config]="editorConfig"></angular-editor>
         </div>
         <div class="text-danger" *ngIf="form.get('info')?.touched && form.get('info')?.invalid">
           <div *ngIf="form.get('info')?.errors?.required">Это обязательное поле</div>

@@ -1,0 +1,13 @@
+.add-photo {
+
+  ::ng-deep {
+    .angular-editor-wrapper {
+      width: 200px;
+      height: auto;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
