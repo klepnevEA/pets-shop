@@ -22,6 +22,7 @@ export interface IAuthResponse {
 }
 
 export interface Ipet {
+  id?: string,
   type: string,
   title: string,
   photo: string,

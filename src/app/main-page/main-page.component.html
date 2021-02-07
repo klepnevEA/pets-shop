@@ -1,2 +1,4 @@
-<p>main-page works!</p>
-
+<div *ngIf="pets$ | async as pets">
+  <app-pet [pet]="pet" *ngFor="let pet of pets">
+  </app-pet>
+</div>

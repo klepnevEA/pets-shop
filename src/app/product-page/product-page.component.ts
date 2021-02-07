@@ -1,4 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { Ipet } from '../shared/interfaces';
 
 @Component({
   selector: 'app-product-page',
@@ -8,9 +13,21 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class ProductPageComponent implements OnInit {
 
-  constructor() { }
+  public pet$!: Observable<Ipet>
+
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+    this.pet$ = this.route.params
+    .pipe(
+      switchMap(params => {
+        return  this.productService.getPetId(params['id'])
+      })
+    )
   }
 
 }

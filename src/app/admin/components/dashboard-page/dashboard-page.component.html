@@ -1,1 +1,33 @@
-<p>dashboard-page works!</p>
+
+<div class="mt-2">
+  <div *ngIf="pets$ | async as pets">
+    <ul class="row row-cols-1 row-cols-sm-2 row-cols-md-3 pets-list">
+      <li *ngFor="let pet of pets; let i = index" class="col mb-2 pets-list__item">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><h6>{{i + 1}}: {{pet.title}}</h6></div>
+              <div class="col-auto">{{pet.date | date}}</div>
+            </div>
+            <div class="pets-list__photo mb-3" [innerHTML]="pet.photo"></div>
+            <div class="row">
+              <div class="col-md-auto mb-1">
+                <button class="btn btn-secondary btn-block" [routerLink]="['/admin','product', 'pet.id', 'edit']">Править</button>
+              </div>
+              <div class="col-md-auto mb-1">
+                <button class="btn btn-danger btn-block" (click)="removePet(pet.id)">Удалить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+
+
+  </div>
+
+  <ng-template #loading>Загрузка</ng-template>
+</div>
+
+

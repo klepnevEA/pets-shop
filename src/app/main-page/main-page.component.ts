@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { Ipet } from '../shared/interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -8,9 +11,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  public pets$!: Observable<any>
+  constructor(
+    private pestService: ProductService
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.pestService.getPet())
+    this.pets$ = this.pestService.getPet()
   }
 
 }

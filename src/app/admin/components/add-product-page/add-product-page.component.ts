@@ -41,7 +41,7 @@ export class AddProductPageComponent implements OnInit {
     this.submited = true
 
     this.pet = {
-      type: this.form.value.email,
+      type: this.form.value.type,
       title: this.form.value.title,
       photo: this.form.value.photo,
       info: this.form.value.info,

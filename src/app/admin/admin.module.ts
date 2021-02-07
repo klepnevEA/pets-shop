@@ -22,7 +22,7 @@ const routes: Routes = [
           .then(module => module.OrdersPageModule)
       },
       {
-        path: 'edit',
+        path: 'product/:id/edit',
         canActivate: [AuthGuard],
         loadChildren: () => import('./components/edit-page/edit-page.module')
           .then(module => module.EditPageModule)

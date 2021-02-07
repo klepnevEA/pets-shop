@@ -1,0 +1,23 @@
+.pets-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__photo {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 5px;
+    ::ng-deep {
+
+      img {
+        object-fit: cover;
+        object-position: center;
+        width: 100px;
+        height: auto;
+      }
+    }
+
+  }
+}
