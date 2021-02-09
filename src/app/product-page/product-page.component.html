@@ -17,7 +17,7 @@
           <div class="col-8">
             <div>{{pet.date | date}}</div>
             <h4>Цена: {{pet.price}} р.</h4>
-            {{pet.info}}
+            <div class="pet__content" [innerHTML]="pet.info"></div>
           </div>
         </div>
       </div>

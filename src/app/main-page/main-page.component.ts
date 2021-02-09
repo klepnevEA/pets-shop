@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Ipet } from '../shared/interfaces';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -11,14 +11,40 @@ import { Observable } from 'rxjs';
 })
 export class MainPageComponent implements OnInit {
 
-  public pets$!: Observable<any>
+  public pets$ = new BehaviorSubject<Ipet[]>([])
+  private petSubscription!: Subscription
+  public category!: string;
+  private categorySubscription!: Subscription
+
   constructor(
-    private pestService: ProductService
+    private cdr: ChangeDetectorRef,
+    public petService: ProductService
   ) { }
 
   ngOnInit(): void {
-    console.log(this.pestService.getPet())
-    this.pets$ = this.pestService.getPet()
+
+    this.categorySubscription = this.petService.category$.subscribe(
+      res => {
+        this.category = res
+        this.cdr.detectChanges();
+      }
+    )
+
+    this.petSubscription = this.petService.getPet().subscribe(
+      res => {
+        this.pets$.next(res)
+      }
+    )
+  }
+
+  ngOnDestroy() {
+    if(this.petSubscription) {
+      this.petSubscription.unsubscribe()
+    }
+
+    if(this.categorySubscription) {
+      this.categorySubscription.unsubscribe()
+    }
   }
 
 }

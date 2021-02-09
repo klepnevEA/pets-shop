@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Ipet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
@@ -13,16 +13,26 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   public pets$ = new BehaviorSubject<Ipet[]>([])
   private petSubscription!: Subscription
+  private categorySubscription!: Subscription
   private removeSubscription!: Subscription
   public petsDisplay: string = "petsCard"
   public sortList!: string
-  public selecterCategory!: string
+  public category!: string;
 
   constructor(
-    public petService: ProductService
+    public petService: ProductService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
+
+    this.categorySubscription = this.petService.category$.subscribe(
+      res => {
+        this.category = res
+        this.cdr.detectChanges();
+      }
+    )
+
     this.petSubscription = this.petService.getPet().subscribe(
       res => {
         this.pets$.next(res)
@@ -31,7 +41,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   displayPets(str: string): void {
-    console.log(str)
     this.petsDisplay = str
   }
 
@@ -47,7 +56,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   selectCategory(val: string) {
-    this.selecterCategory = val
+    this.petService.chengeCategory(val)
   }
 
   ngOnDestroy() {
@@ -58,6 +67,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if(this.removeSubscription) {
       this.removeSubscription.unsubscribe()
     }
+
+    if(this.categorySubscription) {
+      this.categorySubscription.unsubscribe()
+    }
+
   }
 
 }

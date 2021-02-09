@@ -41,7 +41,7 @@
     </div>
 
     <div *ngIf="pets | searchPets: sortList as petsFilter">
-      <div *ngIf="petsFilter | categoryPets: selecterCategory as petsCategory">
+      <div *ngIf="petsFilter | categoryPets: category as petsCategory">
       <ul class="row row-cols-1 row-cols-sm-2 row-cols-md-3 pets-list"
         [ngClass]="(petsDisplay=='petsTable')?'pets-list_table':'pets-list_card'">
         <li *ngFor="let pet of petsCategory; let i = index" class="col mb-2 pets-list__item">

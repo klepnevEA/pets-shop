@@ -9,12 +9,12 @@
           </div>
           <div class="col-8">
             <h4>Цена: {{pet.price}} р.</h4>
-            {{pet.info}}
+            <div class="pet__content" [innerHTML]="pet.info"></div>
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-secondary btn-lg btn-block" [routerLink]="['product:id']">Посмотреть зверюшку</button>
+        <button class="btn btn-secondary btn-lg btn-block" [routerLink]="['/product', pet.id]">Посмотреть зверюшку</button>
         <button class="btn btn-secondary btn-lg btn-block" [routerLink]="['/card']">В корзину</button>
       </div>
     </div>

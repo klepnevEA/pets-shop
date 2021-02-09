@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import { SearchPipe } from './pipes/search.pipe';
+import { CategoryPipe } from './pipes/category.pipe';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [SearchPipe, CategoryPipe],
   imports: [
     CommonModule,
     RouterModule,
@@ -13,7 +16,9 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
   ],
   exports: [
     CommonModule,
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
+    SearchPipe,
+    CategoryPipe
   ]
 })
 export class SharedModule { }

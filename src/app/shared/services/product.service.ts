@@ -17,8 +17,13 @@ export class ProductService {
     'Попугаи'
   ]
 
+  public category$ = new BehaviorSubject<string>('all')
 
   constructor(private http:HttpClient) { }
+
+  chengeCategory(val: string) {
+    this.category$.next(val)
+  }
 
   addPet(pet : Ipet) {
     return this.http.post(`${environment.fbDb}/pets.json`, pet)

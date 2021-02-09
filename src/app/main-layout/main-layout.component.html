@@ -7,8 +7,8 @@
       <div class="col-mg">
         <nav class="nav">
           <ul class="nav__list">
-            <li class="nav__item" *ngFor="let category of pesService.categories">
-              <a routerLink='' class="nav__link">{{category}}</a>
+            <li class="nav__item" *ngFor="let category of petService.categories">
+              <a (click)="selectCategory(category)" class="nav__link">{{category}}</a>
             </li>
             <li class="nav__item">
               <a routerLink="/card" class="nav__link">Корзина</a>
