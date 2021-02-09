@@ -30,4 +30,3 @@ export interface Ipet {
   price: string,
   date: Date
 }
-

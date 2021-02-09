@@ -1,15 +1,13 @@
 <div style="min-height: calc(100vh - 160px)" class="row align-items-center">
   <div class="col-md-6 offset-md-3">
-    <h1 class="mb-3">Добавить продукт</h1>
+    <h1 class="mb-3">Добавить</h1>
     <form class="form" [formGroup]="form" (ngSubmit)="addPet()">
       <div class="mb-3">
         <label for="type">Выберете категорию</label>
         <div class="input-group">
           <select class="custom-select" id="type" formControlName="type">
             <option selected>Выберере живность</option>
-            <option value="Котэ">Котэ</option>
-            <option value="Собаки">Собаки</option>
-            <option value="Попугаи">Попугаи</option>
+            <option value="{{category}}" *ngFor="let category of petService.categories">{{category}}</option>
           </select>
         </div>
         <div class="text-danger" *ngIf="form.get('type')?.touched && form.get('type')?.invalid">

@@ -18,9 +18,8 @@ export class AddProductPageComponent implements OnInit {
   public pet!: Ipet
 
   constructor(
-    private petService : ProductService,
-    private router: Router
-    ) { }
+    public petService : ProductService
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({

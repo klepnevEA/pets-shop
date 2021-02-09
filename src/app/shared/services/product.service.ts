@@ -11,6 +11,12 @@ import { Ipet } from '../interfaces';
 export class ProductService {
 
   public pets$ = new BehaviorSubject<Ipet[]>([])
+  public categories = [
+    'Котики',
+    'Собачки',
+    'Попугаи'
+  ]
+
 
   constructor(private http:HttpClient) { }
 
@@ -24,6 +30,7 @@ export class ProductService {
       }
     }))
   }
+
   getPet() {
     return this.http.get(`${environment.fbDb}/pets.json`)
     .pipe(

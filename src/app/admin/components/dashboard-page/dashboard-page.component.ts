@@ -14,28 +14,40 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   public pets$ = new BehaviorSubject<Ipet[]>([])
   private petSubscription!: Subscription
   private removeSubscription!: Subscription
+  public petsDisplay: string = "petsCard"
+  public sortList!: string
+  public selecterCategory!: string
 
   constructor(
-    private prodictService: ProductService
+    public petService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.petSubscription = this.prodictService.getPet().subscribe(
+    this.petSubscription = this.petService.getPet().subscribe(
       res => {
         this.pets$.next(res)
       }
     )
   }
 
+  displayPets(str: string): void {
+    console.log(str)
+    this.petsDisplay = str
+  }
+
 
   removePet(id: any) {
-    this.removeSubscription = this.prodictService.removePet(id).subscribe(() => {
-      this.prodictService.getPet().subscribe(
+    this.removeSubscription = this.petService.removePet(id).subscribe(() => {
+      this.petService.getPet().subscribe(
         res => {
           this.pets$.next(res)
         }
       )
     })
+  }
+
+  selectCategory(val: string) {
+    this.selecterCategory = val
   }
 
   ngOnDestroy() {
