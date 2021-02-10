@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Iuser } from '../shared/interfaces';
 import { ProductService } from '../shared/services/product.service';
+import { UserService } from '../shared/services/users.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -10,12 +13,22 @@ import { ProductService } from '../shared/services/product.service';
 })
 export class MainLayoutComponent implements OnInit {
 
+  private sendSubscription!: Subscription
+  public userName!: string
+
   constructor(
     public petService: ProductService,
     private router: Router,
-    ) { }
+    public userService: UserService,
+    ) {
+      this.sendSubscription = this.userService.dataUser$.subscribe(res => {
+        this.userName = res.name
+      })
+
+    }
 
   ngOnInit(): void {
+    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'))
   }
 
   selectCategory(val: string) {
@@ -25,6 +38,12 @@ export class MainLayoutComponent implements OnInit {
       return
     }
     this.petService.chengeCategory(val)
+  }
+
+  ngOnDestroy() {
+    if(this.sendSubscription) {
+      this.sendSubscription.unsubscribe()
+    }
   }
 
 }

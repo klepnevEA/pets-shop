@@ -58,8 +58,8 @@
       </div>
 
       <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="petForm.invalid || submited">Сохранить</button>
-      <button type="reset" class="btn btn-danger btn-lg btn-block" (click)="removePet(petId)">Удалить</button>
-      <button type="reset" class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Закрыть без сохраниения</button>
+      <button class="btn btn-danger btn-lg btn-block" (click)="removePet(petId)">Удалить</button>
+      <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Закрыть без сохраниения</button>
     </form>
 
   </div>

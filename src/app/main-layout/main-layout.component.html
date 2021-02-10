@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row row__container">
       <div class="col-mg mr-auto">
-        <div class="logo">Магазин</div>
+        <div class="logo">Магазин животных</div>
       </div>
       <div class="col-mg">
         <nav class="nav">
@@ -12,6 +12,12 @@
             </li>
             <li class="nav__item">
               <a (click)="selectCategory('card')" class="nav__link">Корзина</a>
+            </li>
+            <li class="nav__item">
+              <a *ngIf="userService.authUser$ | async; else hello" routerLink="/registration" class="nav__link">Здравствуйте, {{userName}}</a>
+              <ng-template #hello>
+                <a routerLink="/registration" class="nav__link">Регистрация</a>
+              </ng-template>
             </li>
           </ul>
         </nav>

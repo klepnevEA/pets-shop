@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Ipet } from '../shared/interfaces';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { UserService } from './../shared/services/users.service';
 
 @Component({
   selector: 'app-main-page',
@@ -18,10 +19,12 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    public petService: ProductService
+    public petService: ProductService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'))
 
     this.categorySubscription = this.petService.category$.subscribe(
       res => {

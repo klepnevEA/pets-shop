@@ -30,3 +30,10 @@ export interface Ipet {
   price: string,
   date: Date
 }
+export interface Iuser {
+  name: string,
+  phone: string,
+  addres: string,
+  payment: string,
+  date: Date
+}

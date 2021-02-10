@@ -23,6 +23,11 @@ const routes: Routes = [
           .then(module => module.CardPageModule)
       },
       {
+        path: 'registration',
+        loadChildren: () => import('../registration/registration.module')
+          .then(module => module.RegistrationModule)
+      },
+      {
         path: '**',
         loadChildren: () => import('../not-found/not-found.module')
           .then(module => module.NotFoundModule)
