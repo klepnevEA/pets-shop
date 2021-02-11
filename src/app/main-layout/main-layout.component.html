@@ -11,12 +11,15 @@
               <a (click)="selectCategory(category)" class="nav__link">{{category}}</a>
             </li>
             <li class="nav__item">
-              <a (click)="selectCategory('card')" class="nav__link">Корзина</a>
+              <a (click)="selectCategory('card')" class="nav__link">Корзина
+
+                <div *ngIf="cartCount" class="nav__link-count">{{cartCount}}</div>
+              </a>
             </li>
             <li class="nav__item">
-              <a *ngIf="userService.authUser$ | async; else hello" routerLink="/registration" class="nav__link">Здравствуйте, {{userName}}</a>
+              <a *ngIf="userService.authUser$ | async; else hello" routerLink="/registration" class="nav__link"><strong>Здравствуйте, {{userName}}</strong></a>
               <ng-template #hello>
-                <a routerLink="/registration" class="nav__link">Регистрация</a>
+                <a routerLink="/registration" class="nav__link"><strong>Регистрация</strong></a>
               </ng-template>
             </li>
           </ul>

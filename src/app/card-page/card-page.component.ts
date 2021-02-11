@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-
-import { Ipet, Iuser } from '../shared/interfaces';
+import { Ipet, Iuser, Iorder } from '../shared/interfaces';
 import { ProductService } from '../shared/services/product.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/users.service';
+import { CartService } from '../shared/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-page',
@@ -17,17 +18,20 @@ export class CardPageComponent implements OnInit, OnDestroy {
 
   form!: FormGroup
   public dataUser!: Iuser
-
   public petsList: Ipet[] = []
+  private dataOrder!: Iorder
   public price$ = new BehaviorSubject<number>(0)
   public arrange$ = new BehaviorSubject<boolean>(false)
   private petsSubscription!: Subscription
   private sendSubscription!: Subscription
+  private addOrderSubscription!: Subscription
 
   constructor(
     public petService: ProductService,
     private location: Location,
     private userService: UserService,
+    private cartService: CartService,
+    private router: Router,
   ) {
     this.petsSubscription = this.petService.petsCartArray$.subscribe(res => {
       this.petsList = res
@@ -54,7 +58,8 @@ export class CardPageComponent implements OnInit, OnDestroy {
       return
     }
 
-    this.dataUser = {
+    this.dataOrder = {
+      order: this.petsList,
       name: this.form.value.name,
       phone: this.form.value.phone,
       payment: this.form.value.payment,
@@ -62,8 +67,12 @@ export class CardPageComponent implements OnInit, OnDestroy {
       date: new Date()
     }
 
-    console.log(this.petsList)
-    // this.userService.sendUser(this.dataUser)
+
+    this.addOrderSubscription = this.cartService.addOrder(this.dataOrder).subscribe(res => {
+      console.log("заказ оформлен")
+      this.router.navigate(['/']);
+      this.petService.petsCartArray$.next([])
+    })
   }
 
   totalPrice(): void {
@@ -94,6 +103,10 @@ export class CardPageComponent implements OnInit, OnDestroy {
 
     if(this.sendSubscription) {
       this.sendSubscription.unsubscribe()
+    }
+
+    if(this.addOrderSubscription) {
+      this.addOrderSubscription.unsubscribe()
     }
 
   }

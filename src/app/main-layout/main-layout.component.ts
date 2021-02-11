@@ -14,7 +14,9 @@ import { UserService } from '../shared/services/users.service';
 export class MainLayoutComponent implements OnInit {
 
   private sendSubscription!: Subscription
+  private petSubscription!: Subscription
   public userName!: string
+  public cartCount: number = 0
 
   constructor(
     public petService: ProductService,
@@ -23,6 +25,10 @@ export class MainLayoutComponent implements OnInit {
     ) {
       this.sendSubscription = this.userService.dataUser$.subscribe(res => {
         this.userName = res.name
+      })
+
+      this.petSubscription = this.petService.petsCartArray$.subscribe(res => {
+        this.cartCount = res.length
       })
 
     }
@@ -44,6 +50,12 @@ export class MainLayoutComponent implements OnInit {
     if(this.sendSubscription) {
       this.sendSubscription.unsubscribe()
     }
+
+    if(this.petSubscription) {
+      this.petSubscription.unsubscribe()
+    }
+
+
   }
 
 }
