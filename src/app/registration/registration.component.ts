@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private router: Router,
     ) {
       this.sendSubscription = this.userService.dataUser$.subscribe(res => {
         this.submited = false

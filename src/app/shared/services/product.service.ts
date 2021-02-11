@@ -11,6 +11,7 @@ import { Ipet } from '../interfaces';
 export class ProductService {
 
   public pets$ = new BehaviorSubject<Ipet[]>([])
+  public petsCartArray$ = new BehaviorSubject<Ipet[]>([])
   public categories = [
     'Котики',
     'Собачки',
@@ -72,5 +73,27 @@ export class ProductService {
 
   editPet(pet: Ipet) {
     return this.http.patch(`${environment.fbDb}/pets/${pet.id}.json`, pet)
+  }
+
+  addToCart(pet: Ipet): void {
+    const petArr: Ipet[] = this.petsCartArray$.getValue();
+    let stop = true
+    petArr.forEach((item) => {
+      if (item.id === pet.id) {
+        stop = false
+      }
+    });
+    if(stop) {
+      this.petsCartArray$.next(this.petsCartArray$.getValue().concat([pet]))
+    }
+
+  }
+
+  deleteFromCart(pet: Ipet): void {
+    const petArr: Ipet[] = this.petsCartArray$.getValue();
+    petArr.forEach((item, index) => {
+      if (item === pet) { petArr.splice(index, 1); }
+    });
+    this.petsCartArray$.next(petArr);
   }
 }

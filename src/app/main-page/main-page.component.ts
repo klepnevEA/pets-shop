@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public petService: ProductService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'))
@@ -49,5 +49,4 @@ export class MainPageComponent implements OnInit {
       this.categorySubscription.unsubscribe()
     }
   }
-
 }

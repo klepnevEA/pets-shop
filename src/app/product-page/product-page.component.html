@@ -2,7 +2,7 @@
 
   <div class="row mb-2">
     <div class="col"></div>
-    <div class="col-auto"><button class="btn btn-secondary btn-lg btn-block" routerLink="/">Назад</button></div>
+    <div class="col-auto"><button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Назад</button></div>
   </div>
   <div *ngIf="pet$ | async as pet; else loading">
     <div class="card mt-2 mb-1">
@@ -24,7 +24,9 @@
       <div class="card-footer">
         <div class="row">
           <div class="col"></div>
-          <div class="col-auto"><button class="btn btn-secondary btn-lg btn-block" [routerLink]="['/card']">В корзину</button></div>
+          <div class="col-auto">
+            <button class="btn btn-secondary btn-lg btn-block" [routerLink]="['/card']">В корзину</button>
+          </div>
         </div>
 
       </div>

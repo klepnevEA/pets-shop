@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { Location } from '@angular/common';
 import { Ipet } from '../shared/interfaces';
 
 @Component({
@@ -17,17 +18,21 @@ export class ProductPageComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
-
     this.pet$ = this.route.params
     .pipe(
       switchMap(params => {
         return  this.productService.getPetId(params['id'])
       })
     )
+  }
+
+  goBack(): void {
+    this.location.back()
   }
 
 }

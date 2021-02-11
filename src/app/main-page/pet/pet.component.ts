@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Ipet } from 'src/app/shared/interfaces';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-pet',
@@ -10,9 +12,24 @@ import { Ipet } from 'src/app/shared/interfaces';
 export class PetComponent implements OnInit {
 
   @Input() pet!: Ipet;
-  constructor() { }
+  public active$ = new BehaviorSubject<boolean>(false)
+
+  constructor(
+    public petService: ProductService,
+  ) {}
 
   ngOnInit(): void {
   }
+
+  addToCart(pet: Ipet) {
+    this.active$.next(true)
+    this.petService.addToCart(pet)
+  }
+
+  deleteFromCart(pet: Ipet) {
+    this.active$.next(false)
+    this.petService.deleteFromCart(pet)
+  }
+
 
 }
