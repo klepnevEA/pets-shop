@@ -1,1 +1,6 @@
-<p>orders-page works!</p>
+<h1>Список заказов</h1>
+<div *ngIf="cartService.orders$ | async as orders">
+  <div class="card mb-3" *ngFor="let order of orders" >
+    <app-order-table [order]="order"></app-order-table>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Iorder, Ipet, } from '../interfaces';
@@ -11,7 +11,7 @@ import { Iorder, Ipet, } from '../interfaces';
 })
 export class CartService {
 
-  public pets$ = new BehaviorSubject<Ipet[]>([])
+  public orders$ = new Subject<Iorder[]>()
 
   constructor(
     private http:HttpClient,
@@ -30,5 +30,23 @@ export class CartService {
     }))
   }
 
-  getOrder() {}
+  getOrders() {
+    return this.http.get(`${environment.fbDb}/orders.json`)
+    .pipe(
+      map((res: any) => {
+        return Object.keys(res)
+        .map((key) => ({
+          ...res[key],
+          id: key,
+          date: new Date(res[key].date)
+        }))
+        }
+      )
+    )
+  }
+
+  orderDone (id: string) {
+
+    return this.http.delete(`${environment.fbDb}/orders/${id}.json`)
+  }
 }

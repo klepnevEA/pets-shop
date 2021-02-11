@@ -108,7 +108,6 @@ export class CardPageComponent implements OnInit, OnDestroy {
     if(this.addOrderSubscription) {
       this.addOrderSubscription.unsubscribe()
     }
-
   }
 
 }
