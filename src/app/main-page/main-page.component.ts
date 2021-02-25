@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Ipet } from '../shared/interfaces';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { UserService } from './../shared/services/users.service';
+import { IPet } from 'src/app/shared/interfaces';
+import { UserService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-main-page',
@@ -11,14 +11,14 @@ import { UserService } from './../shared/services/users.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPageComponent implements OnInit {
-  public pets$ = new BehaviorSubject<Ipet[]>([]);
-  private petSubscription!: Subscription;
+  public pets$ = new BehaviorSubject<IPet[]>([]);
   public category!: string;
+  private petSubscription!: Subscription;
   private categorySubscription!: Subscription;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     public petService: ProductService,
+    private cdr: ChangeDetectorRef,
     private userService: UserService,
   ) {}
 

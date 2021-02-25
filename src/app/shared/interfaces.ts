@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IAdmin {
   email: string;
   password: string;
   returnSecureToken: boolean;
@@ -21,7 +21,7 @@ export interface IAuthResponse {
   registered: boolean;
 }
 
-export interface Ipet {
+export interface IPet {
   id?: string;
   type: string;
   title: string;
@@ -30,7 +30,7 @@ export interface Ipet {
   price: string;
   date: Date;
 }
-export interface Iuser {
+export interface IUser {
   name: string;
   phone: string;
   addres: string;
@@ -38,7 +38,7 @@ export interface Iuser {
   date: Date;
 }
 
-export interface Iorder {
+export interface IOrder {
   name: string;
     phone: string;
     addres: string;

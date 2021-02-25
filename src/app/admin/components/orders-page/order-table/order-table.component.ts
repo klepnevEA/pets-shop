@@ -10,6 +10,7 @@ import { CartService } from 'src/app/shared/services/cart.service';
 })
 export class OrderTableComponent implements OnInit, OnDestroy {
   @Input() order!: any;
+
   public active: boolean = false;
 
   private orderDonSubscription!: Subscription;

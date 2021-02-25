@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Ipet, Iuser, Iorder } from '../shared/interfaces';
-import { ProductService } from '../shared/services/product.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../shared/services/users.service';
-import { CartService } from '../shared/services/cart.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/shared/services/users.service';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { IPet, IUser, IOrder } from 'src/app/shared/interfaces';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-card-page',
@@ -15,12 +15,13 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardPageComponent implements OnInit, OnDestroy {
-  form!: FormGroup;
-  public dataUser!: Iuser;
-  public petsList: Ipet[] = [];
-  private dataOrder!: Iorder;
+  public form!: FormGroup;
+  public dataUser!: IUser;
+  public petsList: IPet[] = [];
   public price$ = new BehaviorSubject<number>(0);
   public arrange$ = new BehaviorSubject<boolean>(false);
+
+  private dataOrder!: IOrder;
   private petsSubscription!: Subscription;
   private sendSubscription!: Subscription;
   private addOrderSubscription!: Subscription;
@@ -81,7 +82,7 @@ export class CardPageComponent implements OnInit, OnDestroy {
     this.price$.next(price);
   }
 
-  deleteFromCart(pet: Ipet): void {
+  deleteFromCart(pet: IPet): void {
     this.petService.deleteFromCart(pet);
   }
 

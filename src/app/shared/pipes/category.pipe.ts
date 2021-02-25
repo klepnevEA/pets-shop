@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Ipet } from 'src/app/shared/interfaces';
+import { IPet } from 'src/app/shared/interfaces';
 
 @Pipe({
   name: 'categoryPets',
 })
 export class CategoryPipe implements PipeTransform {
-  transform(pets: Ipet[], category = ''): Ipet[] {
+  transform(pets: IPet[], category = ''): IPet[] {
     return pets.filter((res) => {
       if (res.type === undefined) return;
       if (category === 'all') return pets;

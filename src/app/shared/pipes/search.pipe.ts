@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Ipet } from 'src/app/shared/interfaces';
+import { IPet } from 'src/app/shared/interfaces';
 
 @Pipe({
   name: 'searchPets',
 })
 export class SearchPipe implements PipeTransform {
-  transform(pets: Ipet[], search = ''): Ipet[] {
+  transform(pets: IPet[], search = ''): IPet[] {
     if (!search.trim()) {
       return pets;
     }

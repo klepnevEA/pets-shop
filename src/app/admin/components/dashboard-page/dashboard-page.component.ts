@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { Ipet } from 'src/app/shared/interfaces';
+import { IPet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
-  public pets$ = new BehaviorSubject<Ipet[]>([]);
+  public pets$ = new BehaviorSubject<IPet[]>([]);
   private petSubscription!: Subscription;
   private categorySubscription!: Subscription;
   private removeSubscription!: Subscription;

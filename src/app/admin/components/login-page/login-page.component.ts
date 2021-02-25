@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/shared/interfaces';
+import { IAdmin } from 'src/app/shared/interfaces';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    const user: IUser = {
+    const user: IAdmin = {
       email: this.form.value.email,
       password: this.form.value.password,
       returnSecureToken: true,

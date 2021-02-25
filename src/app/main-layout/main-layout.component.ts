@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Iuser } from '../shared/interfaces';
-import { ProductService } from '../shared/services/product.service';
-import { UserService } from '../shared/services/users.service';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { UserService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -12,15 +11,16 @@ import { UserService } from '../shared/services/users.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayoutComponent implements OnInit {
-  private sendSubscription!: Subscription;
-  private petSubscription!: Subscription;
   public userName!: string;
   public cartCount: number = 0;
 
+  private sendSubscription!: Subscription;
+  private petSubscription!: Subscription;
+
   constructor(
     public petService: ProductService,
-    private router: Router,
     public userService: UserService,
+    private router: Router,
   ) {
     this.sendSubscription = this.userService.dataUser$.subscribe((res) => {
       this.userName = res.name;

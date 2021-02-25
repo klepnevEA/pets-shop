@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Ipet } from '../interfaces';
+import { IPet } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  public pets$ = new BehaviorSubject<Ipet[]>([]);
-  public petsCartArray$ = new BehaviorSubject<Ipet[]>([]);
+  public pets$ = new BehaviorSubject<IPet[]>([]);
+  public petsCartArray$ = new BehaviorSubject<IPet[]>([]);
   public categories = ['Котики', 'Собачки', 'Попугаи'];
 
   public category$ = new BehaviorSubject<string>('all');
@@ -21,7 +21,7 @@ export class ProductService {
     this.category$.next(val);
   }
 
-  addPet(pet: Ipet) {
+  addPet(pet: IPet) {
     return this.http.post(`${environment.fbDb}/pets.json`, pet).pipe(
       map((res: any) => {
         return {
@@ -61,12 +61,12 @@ export class ProductService {
     return this.http.delete(`${environment.fbDb}/pets/${id}.json`);
   }
 
-  editPet(pet: Ipet) {
+  editPet(pet: IPet) {
     return this.http.patch(`${environment.fbDb}/pets/${pet.id}.json`, pet);
   }
 
-  addToCart(pet: Ipet): void {
-    const petArr: Ipet[] = this.petsCartArray$.getValue();
+  addToCart(pet: IPet): void {
+    const petArr: IPet[] = this.petsCartArray$.getValue();
     let stop = true;
     petArr.forEach((item) => {
       if (item.id === pet.id) {
@@ -78,8 +78,8 @@ export class ProductService {
     }
   }
 
-  deleteFromCart(pet: Ipet): void {
-    const petArr: Ipet[] = this.petsCartArray$.getValue();
+  deleteFromCart(pet: IPet): void {
+    const petArr: IPet[] = this.petsCartArray$.getValue();
     petArr.forEach((item, index) => {
       if (item === pet) {
         petArr.splice(index, 1);

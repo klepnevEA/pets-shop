@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Iuser } from '../shared/interfaces';
-import { UserService } from '../shared/services/users.service';
+import { IUser } from 'src/app/shared/interfaces';
+import { UserService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +12,8 @@ import { UserService } from '../shared/services/users.service';
 export class RegistrationComponent implements OnInit, OnDestroy {
   public submited: boolean = false;
   public form!: FormGroup;
-  public dataUser!: Iuser;
+  public dataUser!: IUser;
+
   private sendSubscription!: Subscription;
 
   constructor(private userService: UserService) {

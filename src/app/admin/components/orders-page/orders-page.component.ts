@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { Iorder } from 'src/app/shared/interfaces';
+import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/shared/services/cart.service';
 @Component({
   selector: 'app-orders-page',

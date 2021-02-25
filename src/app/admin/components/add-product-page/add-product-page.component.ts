@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { Ipet } from 'src/app/shared/interfaces';
+import { IPet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product-page',
@@ -12,9 +11,9 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProductPageComponent implements OnInit {
-  form!: FormGroup;
+  public form!: FormGroup;
   public submited: boolean = false;
-  public pet!: Ipet;
+  public pet!: IPet;
 
   constructor(public petService: ProductService) {}
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Ipet } from '../shared/interfaces';
+import { IPet } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-product-page',
@@ -13,7 +13,7 @@ import { Ipet } from '../shared/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPageComponent implements OnInit {
-  public pet$!: Observable<Ipet>;
+  public pet$!: Observable<IPet>;
 
   constructor(
     private productService: ProductService,

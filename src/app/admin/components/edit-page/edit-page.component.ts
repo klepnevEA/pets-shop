@@ -6,11 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from './../../../shared/services/product.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Ipet } from 'src/app/shared/interfaces';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { IPet } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-edit-page',
@@ -19,19 +19,20 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditPageComponent implements OnInit, OnDestroy {
-  petForm!: FormGroup;
-  pet!: Ipet;
+  public petForm!: FormGroup;
   public petId!: string;
   public submited: boolean = false;
+
+  private pet!: IPet;
   private removeSubscription!: Subscription;
   private routeSubscription!: Subscription;
   private productSubscription!: Subscription;
   private editSubscription!: Subscription;
 
   constructor(
+    public petService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    public petService: ProductService,
     private cdr: ChangeDetectorRef,
   ) {}
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { IAuthResponse, IUser } from '../interfaces';
+import { Observable } from 'rxjs';
+import { IAuthResponse, IAdmin } from '../interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
@@ -45,7 +45,7 @@ export class AuthService {
     console.log(err);
   }
 
-  public login(user: IUser): Observable<any> {
+  public login(user: IAdmin): Observable<any> {
     return this.http
       .post(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,

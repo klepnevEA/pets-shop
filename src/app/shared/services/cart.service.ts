@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {  Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Iorder, Ipet } from '../interfaces';
+import { IOrder } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  public orders$ = new Subject<Iorder[]>();
+  public orders$ = new Subject<IOrder[]>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addOrder(order: Iorder) {
+  addOrder(order: IOrder) {
     return this.http.post(`${environment.fbDb}/orders.json`, order).pipe(
       map((res: any) => {
         return {
