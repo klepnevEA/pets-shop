@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { AddProductPageComponent } from './add-product-page.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AddProductPageComponent } from './add-product-page.component';
 
 @NgModule({
   declarations: [AddProductPageComponent],
@@ -15,9 +14,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     RouterModule.forChild([
       {
         path: '',
-        component: AddProductPageComponent
-      }
-    ])
-  ]
+        component: AddProductPageComponent,
+      },
+    ]),
+  ],
 })
-export class AddProductPageModule { }
+export class AddProductPageModule {}

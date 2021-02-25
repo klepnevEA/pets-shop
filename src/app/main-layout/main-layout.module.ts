@@ -6,41 +6,39 @@ import { SharedModule } from '../shared/shared.module';
 const routes: Routes = [
   {
     path: '',
-    component: MainLayoutComponent, children: [
+    component: MainLayoutComponent,
+    children: [
       {
         path: '',
-        loadChildren: () => import('../main-page/main-page.module')
-          .then(module => module.MainPageModule)
+        loadChildren: () =>
+          import('../main-page/main-page.module').then((module) => module.MainPageModule),
       },
       {
         path: 'product/:id',
-        loadChildren: () => import('../product-page/product-page.module')
-          .then(module => module.ProductPageModule)
+        loadChildren: () =>
+          import('../product-page/product-page.module').then((module) => module.ProductPageModule),
       },
       {
         path: 'card',
-        loadChildren: () => import('../card-page/card-page.module')
-          .then(module => module.CardPageModule)
+        loadChildren: () =>
+          import('../card-page/card-page.module').then((module) => module.CardPageModule),
       },
       {
         path: 'registration',
-        loadChildren: () => import('../registration/registration.module')
-          .then(module => module.RegistrationModule)
+        loadChildren: () =>
+          import('../registration/registration.module').then((module) => module.RegistrationModule),
       },
       {
         path: '**',
-        loadChildren: () => import('../not-found/not-found.module')
-          .then(module => module.NotFoundModule)
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('../not-found/not-found.module').then((module) => module.NotFoundModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   declarations: [MainLayoutComponent],
-  imports: [
-    SharedModule,
-    RouterModule.forChild(routes)
-  ]
+  imports: [SharedModule, RouterModule.forChild(routes)],
 })
-export class MainLayoutModule { }
+export class MainLayoutModule {}

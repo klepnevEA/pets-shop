@@ -1,6 +1,5 @@
 <div *ngIf="pets$ | async as pets">
   <div *ngIf="pets | categoryPets: category as petsCategory2">
-    <app-pet [pet]="pet" id={{pet.id}} *ngFor="let pet of petsCategory2">
-    </app-pet>
+    <app-pet [pet]="pet" id="{{ pet.id }}" *ngFor="let pet of petsCategory2"> </app-pet>
   </div>
 </div>

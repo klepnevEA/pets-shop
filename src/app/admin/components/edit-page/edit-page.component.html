@@ -1,69 +1,96 @@
 <div *ngIf="petForm; else loading">
+  <div style="min-height: calc(100vh - 160px)" class="row align-items-center">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="mb-3">Редактировать</h1>
+      <form class="form" *ngIf="petForm" [formGroup]="petForm" (ngSubmit)="editPet()">
+        <div class="mb-3">
+          <label for="type">Выберете категорию</label>
+          <div class="input-group">
+            <select class="custom-select" id="type" [formControlName]="'type'">
+              <option selected>Выберере живность</option>
+              <option value="{{ category }}" *ngFor="let category of petService.categories">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="petForm.get('type')?.touched && petForm.get('type')?.invalid"
+          >
+            <div *ngIf="petForm.get('type')?.errors?.required">Это обязательное поле</div>
+          </div>
+        </div>
 
-<div style="min-height: calc(100vh - 160px)" class="row align-items-center">
-  <div class="col-md-6 offset-md-3">
-    <h1 class="mb-3">Редактировать</h1>
-    <form class="form" *ngIf="petForm" [formGroup]="petForm" (ngSubmit)="editPet()">
-      <div class="mb-3">
-        <label for="type">Выберете категорию</label>
-        <div class="input-group">
-          <select class="custom-select" id="type" [formControlName]="'type'">
-            <option selected>Выберере живность</option>
-            <option value="{{category}}" *ngFor="let category of petService.categories">{{category}}</option>
-          </select>
+        <div class="mb-3">
+          <label for="title">Заголовок</label>
+          <div class="input-group">
+            <input type="title" class="form-control" id="title" [formControlName]="'title'" />
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="petForm.get('title')?.touched && petForm.get('title')?.invalid"
+          >
+            <div *ngIf="petForm.get('title')?.errors?.required">Это обязательное поле</div>
+          </div>
         </div>
-        <div class="text-danger" *ngIf="petForm.get('type')?.touched && petForm.get('type')?.invalid">
-          <div *ngIf="petForm.get('type')?.errors?.required">Это обязательное поле</div>
-        </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="title">Заголовок</label>
-        <div class="input-group">
-          <input type="title" class="form-control" id="title" [formControlName]="'title'">
+        <div class="mb-3">
+          <label for="photo">Фотография</label>
+          <div class="input-group">
+            <angular-editor
+              class="add-photo"
+              [formControlName]="'photo'"
+              [config]="uploadImage"
+            ></angular-editor>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="petForm.get('photo')?.touched && petForm.get('photo')?.invalid"
+          >
+            <div *ngIf="petForm.get('photo')?.errors?.required">Это обязательное поле</div>
+          </div>
         </div>
-        <div class="text-danger" *ngIf="petForm.get('title')?.touched && petForm.get('title')?.invalid">
-          <div *ngIf="petForm.get('title')?.errors?.required">Это обязательное поле</div>
-        </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="photo">Фотография</label>
-        <div class="input-group">
-          <angular-editor class="add-photo" [formControlName]="'photo'" [config]="uploadImage"></angular-editor>
+        <div class="mb-3">
+          <label for="info">Описание</label>
+          <div>
+            <angular-editor [formControlName]="'info'" [config]="editorConfig"></angular-editor>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="petForm.get('info')?.touched && petForm.get('info')?.invalid"
+          >
+            <div *ngIf="petForm.get('info')?.errors?.required">Это обязательное поле</div>
+          </div>
         </div>
-        <div class="text-danger" *ngIf="petForm.get('photo')?.touched && petForm.get('photo')?.invalid">
-          <div *ngIf="petForm.get('photo')?.errors?.required">Это обязательное поле</div>
-        </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="info">Описание</label>
-        <div>
-          <angular-editor [formControlName]="'info'" [config]="editorConfig"></angular-editor>
+        <div class="mb-3">
+          <label for="price">Цена</label>
+          <div class="input-group">
+            <input type="price" class="form-control" id="price" [formControlName]="'price'" />
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="petForm.get('price')?.touched && petForm.get('price')?.invalid"
+          >
+            <div *ngIf="petForm.get('price')?.errors?.required">Это обязательное поле</div>
+          </div>
         </div>
-        <div class="text-danger" *ngIf="petForm.get('info')?.touched && petForm.get('info')?.invalid">
-          <div *ngIf="petForm.get('info')?.errors?.required">Это обязательное поле</div>
-        </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="price">Цена</label>
-        <div class="input-group">
-          <input type="price" class="form-control" id="price" [formControlName]="'price'">
-        </div>
-        <div class="text-danger" *ngIf="petForm.get('price')?.touched && petForm.get('price')?.invalid">
-          <div *ngIf="petForm.get('price')?.errors?.required">Это обязательное поле</div>
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="petForm.invalid || submited">Сохранить</button>
-      <button class="btn btn-danger btn-lg btn-block" (click)="removePet(petId)">Удалить</button>
-      <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Закрыть без сохраниения</button>
-    </form>
-
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg btn-block"
+          [disabled]="petForm.invalid || submited"
+        >
+          Сохранить
+        </button>
+        <button class="btn btn-danger btn-lg btn-block" (click)="removePet(petId)">Удалить</button>
+        <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">
+          Закрыть без сохраниения
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 </div>
 
 <ng-template #loading>Загрузка</ng-template>

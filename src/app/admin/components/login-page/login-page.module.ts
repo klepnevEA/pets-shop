@@ -4,8 +4,6 @@ import { LoginPageComponent } from './login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
-
 @NgModule({
   declarations: [LoginPageComponent],
   imports: [
@@ -15,10 +13,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     RouterModule.forChild([
       {
         path: '',
-        component: LoginPageComponent
-      }
-    ])
+        component: LoginPageComponent,
+      },
+    ]),
   ],
-
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

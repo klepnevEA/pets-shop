@@ -8,21 +8,23 @@
         <nav class="nav">
           <ul class="nav__list" *ngIf="!auth.isAuth">
             <li class="nav__item">
-              <a  routerLink="login" routerLinkActive="active" class="nav__link">login</a>
+              <a routerLink="login" routerLinkActive="active" class="nav__link">login</a>
             </li>
           </ul>
           <ul class="nav__list" *ngIf="auth.isAuth">
             <li class="nav__item">
-              <a routerLink="orders" routerLinkActive="active"  class="nav__link">orders</a>
+              <a routerLink="orders" routerLinkActive="active" class="nav__link">orders</a>
             </li>
             <li class="nav__item">
-              <a routerLink="dashboard" routerLinkActive="active"  class="nav__link">dashboard</a>
+              <a routerLink="dashboard" routerLinkActive="active" class="nav__link">dashboard</a>
             </li>
             <li class="nav__item">
-              <a routerLink="product" routerLinkActive="active"  class="nav__link">add-product</a>
+              <a routerLink="product" routerLinkActive="active" class="nav__link">add-product</a>
             </li>
             <li class="nav__item">
-              <a routerLinkActive="active" href="#" (click)="logout($event)" class="nav__link">logout</a>
+              <a routerLinkActive="active" href="#" (click)="logout($event)" class="nav__link"
+                >logout</a
+              >
             </li>
           </ul>
         </nav>
@@ -37,4 +39,3 @@
     </div>
   </div>
 </div>
-

@@ -8,16 +8,22 @@
         <nav class="nav">
           <ul class="nav__list">
             <li class="nav__item" *ngFor="let category of petService.categories">
-              <a (click)="selectCategory(category)" class="nav__link">{{category}}</a>
+              <a (click)="selectCategory(category)" class="nav__link">{{ category }}</a>
             </li>
             <li class="nav__item">
-              <a (click)="selectCategory('card')" class="nav__link">Корзина
+              <a (click)="selectCategory('card')" class="nav__link"
+                >Корзина
 
-                <div *ngIf="cartCount" class="nav__link-count">{{cartCount}}</div>
+                <div *ngIf="cartCount" class="nav__link-count">{{ cartCount }}</div>
               </a>
             </li>
             <li class="nav__item">
-              <a *ngIf="userService.authUser$ | async; else hello" routerLink="/registration" class="nav__link"><strong>Здравствуйте, {{userName}}</strong></a>
+              <a
+                *ngIf="userService.authUser$ | async; else hello"
+                routerLink="/registration"
+                class="nav__link"
+                ><strong>Здравствуйте, {{ userName }}</strong></a
+              >
               <ng-template #hello>
                 <a routerLink="/registration" class="nav__link"><strong>Регистрация</strong></a>
               </ng-template>
@@ -31,4 +37,3 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-

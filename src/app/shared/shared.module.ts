@@ -6,19 +6,9 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { SearchPipe } from './pipes/search.pipe';
 import { CategoryPipe } from './pipes/category.pipe';
 
-
 @NgModule({
   declarations: [SearchPipe, CategoryPipe],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AlifeFileToBase64Module
-  ],
-  exports: [
-    CommonModule,
-    AlifeFileToBase64Module,
-    SearchPipe,
-    CategoryPipe
-  ]
+  imports: [CommonModule, RouterModule, AlifeFileToBase64Module],
+  exports: [CommonModule, AlifeFileToBase64Module, SearchPipe, CategoryPipe],
 })
-export class SharedModule { }
+export class SharedModule {}

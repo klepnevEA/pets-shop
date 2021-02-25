@@ -7,22 +7,16 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor(private http: HttpClient, private router: Router) {}
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-    ) {}
-
-  public isAuth!: boolean
+  public isAuth!: boolean;
 
   private setToken(response: IAuthResponse | any) {
     if (response) {
-      const expDate = new Date(
-        new Date().getTime() + +response.expiresIn * 1000
-      );
+      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
       localStorage.setItem('firebase-token', response.idToken);
       localStorage.setItem('firebase-token-exp', expDate.toString());
       localStorage.setItem('isAuth', 'true');
@@ -32,9 +26,7 @@ export class AuthService {
   }
 
   get token() {
-    const expDate = new Date(
-      JSON.parse(localStorage.getItem('firebase-token-exp') || '{}')
-    );
+    const expDate = new Date(JSON.parse(localStorage.getItem('firebase-token-exp') || '{}'));
     if (new Date() > expDate) {
       this.logout();
       return null;
@@ -43,28 +35,28 @@ export class AuthService {
   }
 
   public logout() {
-    this.setToken(null)
+    this.setToken(null);
     localStorage.clear();
-    this.router.navigate(['/admin', 'login'])
-    this.isAuth = !!localStorage.getItem('isAuth')
+    this.router.navigate(['/admin', 'login']);
+    this.isAuth = !!localStorage.getItem('isAuth');
   }
 
-  private showError(err : HttpErrorResponse) {
-    console.log(err)
+  private showError(err: HttpErrorResponse) {
+    console.log(err);
   }
 
   public login(user: IUser): Observable<any> {
     return this.http
       .post(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
-        user
+        user,
       )
       .pipe(
         tap(this.setToken),
         catchError(async (err) => this.showError(err)),
-        tap(()=> {
-          this.isAuth = !!localStorage.getItem('isAuth')
-        })
+        tap(() => {
+          this.isAuth = !!localStorage.getItem('isAuth');
+        }),
       );
   }
 }

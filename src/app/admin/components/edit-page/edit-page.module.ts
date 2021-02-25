@@ -5,8 +5,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
-
-
 @NgModule({
   declarations: [EditPageComponent],
   imports: [
@@ -16,9 +14,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     RouterModule.forChild([
       {
         path: '',
-        component: EditPageComponent
-      }
-    ])
-  ]
+        component: EditPageComponent,
+      },
+    ]),
+  ],
 })
-export class EditPageModule { }
+export class EditPageModule {}

@@ -12,9 +12,9 @@ import { FormsModule } from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: DashboardPageComponent
-      }
-    ])
-  ]
+        component: DashboardPageComponent,
+      },
+    ]),
+  ],
 })
-export class DashboardPageModule { }
+export class DashboardPageModule {}

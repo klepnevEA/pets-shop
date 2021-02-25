@@ -9,53 +9,48 @@ import { UserService } from '../shared/services/users.service';
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayoutComponent implements OnInit {
-
-  private sendSubscription!: Subscription
-  private petSubscription!: Subscription
-  public userName!: string
-  public cartCount: number = 0
+  private sendSubscription!: Subscription;
+  private petSubscription!: Subscription;
+  public userName!: string;
+  public cartCount: number = 0;
 
   constructor(
     public petService: ProductService,
     private router: Router,
     public userService: UserService,
-    ) {
-      this.sendSubscription = this.userService.dataUser$.subscribe(res => {
-        this.userName = res.name
-      })
+  ) {
+    this.sendSubscription = this.userService.dataUser$.subscribe((res) => {
+      this.userName = res.name;
+    });
 
-      this.petSubscription = this.petService.petsCartArray$.subscribe(res => {
-        this.cartCount = res.length
-      })
-
-    }
+    this.petSubscription = this.petService.petsCartArray$.subscribe((res) => {
+      this.cartCount = res.length;
+    });
+  }
 
   ngOnInit(): void {
-    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'))
+    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
   }
 
   selectCategory(val: string) {
-    this.router.navigate(['/'])
-    if(val === 'card') {
-      this.router.navigate(['/card'])
-      return
+    this.router.navigate(['/']);
+    if (val === 'card') {
+      this.router.navigate(['/card']);
+      return;
     }
-    this.petService.chengeCategory(val)
+    this.petService.chengeCategory(val);
   }
 
   ngOnDestroy() {
-    if(this.sendSubscription) {
-      this.sendSubscription.unsubscribe()
+    if (this.sendSubscription) {
+      this.sendSubscription.unsubscribe();
     }
 
-    if(this.petSubscription) {
-      this.petSubscription.unsubscribe()
+    if (this.petSubscription) {
+      this.petSubscription.unsubscribe();
     }
-
-
   }
-
 }

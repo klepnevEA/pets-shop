@@ -5,7 +5,7 @@
       <div class="mb-3">
         <label for="email">Ваша почта</label>
         <div class="input-group">
-          <input type="email" class="form-control" id="email" formControlName="email">
+          <input type="email" class="form-control" id="email" formControlName="email" />
         </div>
         <div class="text-danger" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
           <div *ngIf="form.get('email')?.errors?.required">Введите Email</div>
@@ -15,21 +15,28 @@
       <div class="mb-3">
         <label for="password">Ваш пароль</label>
         <div class="input-group">
-          <input type="password" class="form-control" id="password"  formControlName="password">
+          <input type="password" class="form-control" id="password" formControlName="password" />
         </div>
-        <div class="text-danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+        <div
+          class="text-danger"
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
           <div *ngIf="form.get('password')?.errors?.required">Введите пароль</div>
-          <div *ngIf="form.get('password')?.errors?.minlength">Минимальная длина пароля {{form.get('password')?.errors?.minlength.requiredLength}} символов</div>
+          <div *ngIf="form.get('password')?.errors?.minlength">
+            Минимальная длина пароля
+            {{ form.get('password')?.errors?.minlength.requiredLength }} символов
+          </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid || submited">Отправить</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="form.invalid || submited"
+      >
+        Отправить
+      </button>
       <button type="reset" class="btn btn-secondary btn-lg btn-block">Очистить</button>
     </form>
-
   </div>
 </div>
-
-
-
-

@@ -1,8 +1,9 @@
 <div class="row mb-2">
   <div class="col"><h1 class="mt-2 mb-3">Ваши животные</h1></div>
-  <div class="col-auto mt-3"><button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Назад</button></div>
+  <div class="col-auto mt-3">
+    <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Назад</button>
+  </div>
 </div>
-
 
 <table class="table">
   <thead>
@@ -16,8 +17,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let pet of petsList; let i = index">
-      <th scope="row">{{i + 1}}</th>
-      <th scope="row">{{pet.title}}</th>
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">{{ pet.title }}</th>
 
       <th scope="row">
         <button class="btn btn-primary" [routerLink]="['/product', pet.id]">Информация</button>
@@ -25,18 +26,26 @@
       <th scope="row">
         <button class="btn btn-danger" (click)="deleteFromCart(pet)">Удалить</button>
       </th>
-      <th scope="row">{{pet.price}} руб.</th>
+      <th scope="row">{{ pet.price }} руб.</th>
     </tr>
     <tr>
-      <td colspan=4></td>
-      <td><strong>Итого: {{price$ | async}} руб</strong></td>
+      <td colspan="4"></td>
+      <td>
+        <strong>Итого: {{ price$ | async }} руб</strong>
+      </td>
     </tr>
   </tbody>
 </table>
 <div class="row" *ngIf="petsList.length">
   <div class="col"></div>
   <div class="col-auto">
-    <button class="btn btn-danger" *ngIf="arrange$ | async; else cancellation" (click)="arrange$.next(false)">Передумать</button>
+    <button
+      class="btn btn-danger"
+      *ngIf="arrange$ | async; else cancellation"
+      (click)="arrange$.next(false)"
+    >
+      Передумать
+    </button>
     <ng-template #cancellation>
       <button class="btn btn-primary" (click)="arrange$.next(true)">Офорить заказ</button>
     </ng-template>
@@ -44,12 +53,11 @@
 </div>
 <div class="row" *ngIf="arrange$ | async">
   <div class="col-md-6 offset-md-3">
-      <form class="form" [formGroup]="form" (ngSubmit)="sendOrder()">
-
+    <form class="form" [formGroup]="form" (ngSubmit)="sendOrder()">
       <div class="mb-3">
         <label for="name">Ваше имя</label>
         <div class="input-group">
-          <input type="name" class="form-control" id="name" formControlName="name">
+          <input type="name" class="form-control" id="name" formControlName="name" />
         </div>
         <div class="text-danger" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
           <div *ngIf="form.get('name')?.errors?.required">Укажите ваше имя</div>
@@ -59,18 +67,17 @@
       <div class="mb-3">
         <label for="phone">Ваш телефон</label>
         <div class="input-group">
-          <input type="phone" class="form-control" id="phone" formControlName="phone">
+          <input type="phone" class="form-control" id="phone" formControlName="phone" />
         </div>
         <div class="text-danger" *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
           <div *ngIf="form.get('phone')?.errors?.required">Укажите ваш телефон</div>
         </div>
       </div>
 
-
       <div class="mb-3">
         <label for="addres">Ваш адрес</label>
         <div class="input-group">
-          <input type="addres" class="form-control" id="addres" formControlName="addres">
+          <input type="addres" class="form-control" id="addres" formControlName="addres" />
         </div>
         <div class="text-danger" *ngIf="form.get('addres')?.touched && form.get('addres')?.invalid">
           <div *ngIf="form.get('addres')?.errors?.required">Укажите ваш адрес</div>
@@ -83,33 +90,37 @@
           <div class="row">
             <div class="col-auto">
               <div class="form-check">
-                <input class="form-check-input" formControlName="payment" type="radio" name="payment" id="payment" value="Карта">
-                <label class="form-check-label" for="payment">
-                  Карта
-                </label>
+                <input
+                  class="form-check-input"
+                  formControlName="payment"
+                  type="radio"
+                  name="payment"
+                  id="payment"
+                  value="Карта"
+                />
+                <label class="form-check-label" for="payment"> Карта </label>
               </div>
             </div>
             <div class="col-auto">
               <div class="form-check">
-                <input class="form-check-input" formControlName="payment" type="radio" name="payment" id="payment" value="Наличные">
-                <label class="form-check-label" for="payment">
-                  Наличные
-                </label>
+                <input
+                  class="form-check-input"
+                  formControlName="payment"
+                  type="radio"
+                  name="payment"
+                  id="payment"
+                  value="Наличные"
+                />
+                <label class="form-check-label" for="payment"> Наличные </label>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid">Отправить заказ</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid">
+        Отправить заказ
+      </button>
     </form>
   </div>
-
-
-
 </div>
-
-
-
-

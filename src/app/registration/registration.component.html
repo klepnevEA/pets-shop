@@ -2,11 +2,10 @@
   <div class="col-md-6 offset-md-3">
     <h1 class="h1 mb-3">Форма регистрации</h1>
     <form class="form" [formGroup]="form" (ngSubmit)="sendUser()">
-
       <div class="mb-3">
         <label for="name">Ваше имя</label>
         <div class="input-group">
-          <input type="name" class="form-control" id="name" formControlName="name">
+          <input type="name" class="form-control" id="name" formControlName="name" />
         </div>
         <div class="text-danger" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
           <div *ngIf="form.get('name')?.errors?.required">Укажите ваше имя</div>
@@ -16,18 +15,17 @@
       <div class="mb-3">
         <label for="phone">Ваш телефон</label>
         <div class="input-group">
-          <input type="phone" class="form-control" id="phone" formControlName="phone">
+          <input type="phone" class="form-control" id="phone" formControlName="phone" />
         </div>
         <div class="text-danger" *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
           <div *ngIf="form.get('phone')?.errors?.required">Укажите ваш телефон</div>
         </div>
       </div>
 
-
       <div class="mb-3">
         <label for="addres">Ваш адрес</label>
         <div class="input-group">
-          <input type="addres" class="form-control" id="addres" formControlName="addres">
+          <input type="addres" class="form-control" id="addres" formControlName="addres" />
         </div>
         <div class="text-danger" *ngIf="form.get('addres')?.touched && form.get('addres')?.invalid">
           <div *ngIf="form.get('addres')?.errors?.required">Укажите ваш адрес</div>
@@ -40,29 +38,42 @@
           <div class="row">
             <div class="col-auto">
               <div class="form-check">
-                <input class="form-check-input" formControlName="payment" type="radio" name="payment" id="payment" value="Карта">
-                <label class="form-check-label" for="payment">
-                  Карта
-                </label>
+                <input
+                  class="form-check-input"
+                  formControlName="payment"
+                  type="radio"
+                  name="payment"
+                  id="payment"
+                  value="Карта"
+                />
+                <label class="form-check-label" for="payment"> Карта </label>
               </div>
             </div>
             <div class="col-auto">
               <div class="form-check">
-                <input class="form-check-input" formControlName="payment" type="radio" name="payment" id="payment" value="Наличные">
-                <label class="form-check-label" for="payment">
-                  Наличные
-                </label>
+                <input
+                  class="form-check-input"
+                  formControlName="payment"
+                  type="radio"
+                  name="payment"
+                  id="payment"
+                  value="Наличные"
+                />
+                <label class="form-check-label" for="payment"> Наличные </label>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid || submited">Добавить</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="form.invalid || submited"
+      >
+        Добавить
+      </button>
       <a routerLink="/" class="btn btn-secondary btn-lg btn-block">Назад</a>
     </form>
-
   </div>
 </div>

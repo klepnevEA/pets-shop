@@ -3,8 +3,6 @@ import { ProductPageComponent } from './product-page.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
-
-
 @NgModule({
   declarations: [ProductPageComponent],
   imports: [
@@ -12,9 +10,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule.forChild([
       {
         path: '',
-        component: ProductPageComponent
-      }
-    ])
-  ]
+        component: ProductPageComponent,
+      },
+    ]),
+  ],
 })
-export class ProductPageModule { }
+export class ProductPageModule {}

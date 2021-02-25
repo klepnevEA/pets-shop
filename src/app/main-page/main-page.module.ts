@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PetComponent } from './pet/pet.component';
 
-
-
 @NgModule({
   declarations: [MainPageComponent, PetComponent],
   imports: [
@@ -13,9 +11,9 @@ import { PetComponent } from './pet/pet.component';
     RouterModule.forChild([
       {
         path: '',
-        component: MainPageComponent
-      }
-    ])
-  ]
+        component: MainPageComponent,
+      },
+    ]),
+  ],
 })
-export class MainPageModule { }
+export class MainPageModule {}

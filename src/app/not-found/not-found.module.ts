@@ -3,7 +3,6 @@ import { NotFoundComponent } from './not-found.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
   declarations: [NotFoundComponent],
   imports: [
@@ -11,9 +10,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule.forChild([
       {
         path: '',
-        component: NotFoundComponent
-      }
-    ])
-  ]
+        component: NotFoundComponent,
+      },
+    ]),
+  ],
 })
-export class NotFoundModule { }
+export class NotFoundModule {}

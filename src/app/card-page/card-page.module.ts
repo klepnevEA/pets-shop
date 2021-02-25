@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardPageComponent } from './card-page.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { CardPageComponent } from './card-page.component';
 
 @NgModule({
   declarations: [CardPageComponent],
@@ -14,9 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: CardPageComponent
-      }
-    ])
-  ]
+        component: CardPageComponent,
+      },
+    ]),
+  ],
 })
-export class CardPageModule { }
+export class CardPageModule {}

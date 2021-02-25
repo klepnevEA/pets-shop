@@ -1,13 +1,14 @@
 <div class="mt-2">
-
   <div class="row mb-2">
     <div class="col"></div>
-    <div class="col-auto"><button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Назад</button></div>
+    <div class="col-auto">
+      <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Назад</button>
+    </div>
   </div>
   <div *ngIf="pet$ | async as pet; else loading">
     <div class="card mt-2 mb-1">
       <div class="card-header">
-        <h2 class="h2">{{pet.title}}</h2>
+        <h2 class="h2">{{ pet.title }}</h2>
       </div>
       <div class="card-body">
         <div class="row pet">
@@ -15,25 +16,14 @@
             <div class="pet__photo" [innerHTML]="pet.photo"></div>
           </div>
           <div class="col-8">
-            <div>{{pet.date | date}}</div>
-            <h4>Цена: {{pet.price}} р.</h4>
+            <div>{{ pet.date | date }}</div>
+            <h4>Цена: {{ pet.price }} р.</h4>
             <div class="pet__content" [innerHTML]="pet.info"></div>
           </div>
         </div>
       </div>
-      <!-- <div class="card-footer">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col-auto">
-            <button class="btn btn-secondary btn-lg btn-block" [routerLink]="['/card']">В корзину</button>
-          </div>
-        </div>
-      </div> -->
     </div>
-
   </div>
 
   <ng-template #loading>Загрузка</ng-template>
-
 </div>
-

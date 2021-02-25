@@ -7,7 +7,9 @@
         <div class="input-group">
           <select class="custom-select" id="type" formControlName="type">
             <option selected>Выберере живность</option>
-            <option value="{{category}}" *ngFor="let category of petService.categories">{{category}}</option>
+            <option value="{{ category }}" *ngFor="let category of petService.categories">
+              {{ category }}
+            </option>
           </select>
         </div>
         <div class="text-danger" *ngIf="form.get('type')?.touched && form.get('type')?.invalid">
@@ -18,7 +20,7 @@
       <div class="mb-3">
         <label for="title">Заголовок</label>
         <div class="input-group">
-          <input type="title" class="form-control" id="title" formControlName="title">
+          <input type="title" class="form-control" id="title" formControlName="title" />
         </div>
         <div class="text-danger" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
           <div *ngIf="form.get('title')?.errors?.required">Это обязательное поле</div>
@@ -28,7 +30,11 @@
       <div class="mb-3">
         <label for="photo">Фотография</label>
         <div class="input-group">
-          <angular-editor class="add-photo" formControlName="photo" [config]="uploadImage"></angular-editor>
+          <angular-editor
+            class="add-photo"
+            formControlName="photo"
+            [config]="uploadImage"
+          ></angular-editor>
         </div>
         <div class="text-danger" *ngIf="form.get('photo')?.touched && form.get('photo')?.invalid">
           <div *ngIf="form.get('photo')?.errors?.required">Это обязательное поле</div>
@@ -48,16 +54,21 @@
       <div class="mb-3">
         <label for="price">Цена</label>
         <div class="input-group">
-          <input type="price" class="form-control" id="price" formControlName="price">
+          <input type="price" class="form-control" id="price" formControlName="price" />
         </div>
         <div class="text-danger" *ngIf="form.get('price')?.touched && form.get('price')?.invalid">
           <div *ngIf="form.get('price')?.errors?.required">Это обязательное поле</div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="form.invalid || submited">Добавить</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="form.invalid || submited"
+      >
+        Добавить
+      </button>
       <button type="reset" class="btn btn-secondary btn-lg btn-block">Очистить</button>
     </form>
-
   </div>
 </div>

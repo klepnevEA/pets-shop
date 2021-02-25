@@ -9,17 +9,14 @@ import { Router } from '@angular/router';
   selector: 'app-add-product-page',
   templateUrl: './add-product-page.component.html',
   styleUrls: ['./add-product-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProductPageComponent implements OnInit {
+  form!: FormGroup;
+  public submited: boolean = false;
+  public pet!: Ipet;
 
-  form!: FormGroup
-  public submited: boolean = false
-  public pet!: Ipet
-
-  constructor(
-    public petService : ProductService
-  ) { }
+  constructor(public petService: ProductService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -28,16 +25,15 @@ export class AddProductPageComponent implements OnInit {
       photo: new FormControl(null, [Validators.required]),
       info: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-    })
-
+    });
   }
 
   addPet() {
     if (this.form.invalid) {
-      return
+      return;
     }
 
-    this.submited = true
+    this.submited = true;
 
     this.pet = {
       type: this.form.value.type,
@@ -45,19 +41,19 @@ export class AddProductPageComponent implements OnInit {
       photo: this.form.value.photo,
       info: this.form.value.info,
       price: this.form.value.price,
-      date: new Date()
-    }
+      date: new Date(),
+    };
 
-    this.petService.addPet(this.pet).subscribe(res => {
-      this.form.reset()
-      this.submited = false
-      console.log('Животное добавлено')
-    })
+    this.petService.addPet(this.pet).subscribe((res) => {
+      this.form.reset();
+      this.submited = false;
+      console.log('Животное добавлено');
+    });
   }
 
   editorConfig: AngularEditorConfig = {
     editable: true,
-  }
+  };
 
   uploadImage: AngularEditorConfig = {
     editable: true,
@@ -80,7 +76,7 @@ export class AddProductPageComponent implements OnInit {
         'insertUnorderedList',
         'insertOrderedList',
         'heading',
-        'fontName'
+        'fontName',
       ],
       [
         'fontSize',
@@ -92,8 +88,8 @@ export class AddProductPageComponent implements OnInit {
         'insertVideo',
         'insertHorizontalRule',
         'removeFormat',
-        'toggleEditorMode'
-      ]
-    ]
+        'toggleEditorMode',
+      ],
+    ],
   };
 }

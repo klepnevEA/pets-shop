@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [RegistrationComponent],
   imports: [
@@ -15,9 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: RegistrationComponent
-      }
-    ])
-  ]
+        component: RegistrationComponent,
+      },
+    ]),
+  ],
 })
-export class RegistrationModule { }
+export class RegistrationModule {}

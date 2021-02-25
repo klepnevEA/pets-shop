@@ -8,51 +8,42 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent implements OnInit {
+  public form!: FormGroup;
 
-  public form!: FormGroup
+  public submited: boolean = false;
 
-  public submited: boolean = false
-
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-  ) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(null, [
-        Validators.email,
-        Validators.required
-      ]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6)
-      ])
-    })
+      email: new FormControl(null, [Validators.email, Validators.required]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+    });
   }
 
   submit() {
     if (this.form.invalid) {
-      return
+      return;
     }
     const user: IUser = {
       email: this.form.value.email,
       password: this.form.value.password,
-      returnSecureToken: true
-    }
-    this.submited = true
+      returnSecureToken: true,
+    };
+    this.submited = true;
 
-    this.auth.login(user).subscribe(res => {
-      this.form.reset
-      this.router.navigate(['/admin', 'dashboard'])
-      this.submited = false
-    },err => {
-      this.submited = false
-    });
-
+    this.auth.login(user).subscribe(
+      (res) => {
+        this.form.reset;
+        this.router.navigate(['/admin', 'dashboard']);
+        this.submited = false;
+      },
+      (err) => {
+        this.submited = false;
+      },
+    );
   }
-
 }

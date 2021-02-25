@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OrderTableComponent } from './order-table/order-table.component';
 
-
-
 @NgModule({
   declarations: [OrdersPageComponent, OrderTableComponent],
   imports: [
@@ -13,9 +11,9 @@ import { OrderTableComponent } from './order-table/order-table.component';
     RouterModule.forChild([
       {
         path: '',
-        component: OrdersPageComponent
-      }
-    ])
-  ]
+        component: OrdersPageComponent,
+      },
+    ]),
+  ],
 })
-export class OrdersPageModule { }
+export class OrdersPageModule {}

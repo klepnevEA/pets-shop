@@ -7,29 +7,23 @@ import { ProductService } from 'src/app/shared/services/product.service';
   selector: 'app-pet',
   templateUrl: './pet.component.html',
   styleUrls: ['./pet.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PetComponent implements OnInit {
-
   @Input() pet!: Ipet;
-  public active$ = new BehaviorSubject<boolean>(false)
+  public active$ = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    public petService: ProductService,
-  ) {}
+  constructor(public petService: ProductService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addToCart(pet: Ipet) {
-    this.active$.next(true)
-    this.petService.addToCart(pet)
+    this.active$.next(true);
+    this.petService.addToCart(pet);
   }
 
   deleteFromCart(pet: Ipet) {
-    this.active$.next(false)
-    this.petService.deleteFromCart(pet)
+    this.active$.next(false);
+    this.petService.deleteFromCart(pet);
   }
-
-
 }

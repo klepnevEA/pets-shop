@@ -6,28 +6,26 @@ import { CartService } from 'src/app/shared/services/cart.service';
   selector: 'app-orders-page',
   templateUrl: './orders-page.component.html',
   styleUrls: ['./orders-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPageComponent implements OnInit {
+  private getOrdersSubscription!: Subscription;
 
-
-  private getOrdersSubscription!: Subscription
-
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService) {}
 
   ngOnInit(): void {
-    this.getAllOrders()
+    this.getAllOrders();
   }
 
   getAllOrders() {
-    this.getOrdersSubscription = this.cartService.getOrders().subscribe(res => {
-      this.cartService.orders$.next(res)
-    })
+    this.getOrdersSubscription = this.cartService.getOrders().subscribe((res) => {
+      this.cartService.orders$.next(res);
+    });
   }
 
   ngOnDestroy() {
-    if(this.getOrdersSubscription) {
-      this.getOrdersSubscription.unsubscribe()
+    if (this.getOrdersSubscription) {
+      this.getOrdersSubscription.unsubscribe();
     }
   }
 }
