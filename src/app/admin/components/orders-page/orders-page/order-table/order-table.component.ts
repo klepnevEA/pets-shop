@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
@@ -13,28 +13,21 @@ export class OrderTableComponent implements OnInit, OnDestroy {
 
   public active: boolean = false;
 
-  private orderDonSubscription!: Subscription;
-  private cartServiceSubscription!: Subscription;
+  private subs: Subscriptions = {};
 
   constructor(public cartService: CartService) {}
 
   ngOnInit(): void {}
 
   orderDone(id: string) {
-    this.orderDonSubscription = this.cartService.orderDone(id).subscribe(() => {
-      this.cartServiceSubscription = this.cartService.getOrders().subscribe((res) => {
+    this.subs.orderDonSubscription = this.cartService.orderDone(id).subscribe(() => {
+      this.subs.cartServiceSubscription = this.cartService.getOrders().subscribe((res) => {
         this.cartService.orders$.next(res);
       });
     });
   }
 
   ngOnDestroy() {
-    if (this.orderDonSubscription) {
-      this.orderDonSubscription.unsubscribe();
-    }
-
-    if (this.cartServiceSubscription) {
-      this.cartServiceSubscription.unsubscribe();
-    }
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }

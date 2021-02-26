@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { IAdmin } from 'src/app/shared/interfaces';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -12,8 +13,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
   public form!: FormGroup;
-
   public submited: boolean = false;
+  private subs: Subscriptions = {};
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -35,7 +36,7 @@ export class LoginPageComponent implements OnInit {
     };
     this.submited = true;
 
-    this.auth.login(user).subscribe(
+    this.subs.authSubscription = this.auth.login(user).subscribe(
       (res) => {
         this.form.reset;
         this.router.navigate(['/admin', 'dashboard']);
@@ -45,5 +46,9 @@ export class LoginPageComponent implements OnInit {
         this.submited = false;
       },
     );
+  }
+
+  ngOnDestroy() {
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }

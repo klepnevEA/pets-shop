@@ -5,7 +5,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { IPet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
 
@@ -17,22 +18,20 @@ import { ProductService } from 'src/app/shared/services/product.service';
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
   public pets$ = new BehaviorSubject<IPet[]>([]);
-  private petSubscription!: Subscription;
-  private categorySubscription!: Subscription;
-  private removeSubscription!: Subscription;
   public petsDisplay: string = 'petsCard';
   public sortList!: string;
   public category!: string;
+  private subs: Subscriptions = {};
 
   constructor(public petService: ProductService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.categorySubscription = this.petService.category$.subscribe((res) => {
+    this.subs.categorySubscription = this.petService.category$.subscribe((res) => {
       this.category = res;
       this.cdr.detectChanges();
     });
 
-    this.petSubscription = this.petService.getPet().subscribe((res) => {
+    this.subs.petSubscription = this.petService.getPet().subscribe((res) => {
       this.pets$.next(res);
     });
   }
@@ -42,7 +41,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   removePet(id: any) {
-    this.removeSubscription = this.petService.removePet(id).subscribe(() => {
+    this.subs.removeSubscription = this.petService.removePet(id).subscribe(() => {
       this.petService.getPet().subscribe((res) => {
         this.pets$.next(res);
       });
@@ -54,16 +53,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.petSubscription) {
-      this.petSubscription.unsubscribe();
-    }
-
-    if (this.removeSubscription) {
-      this.removeSubscription.unsubscribe();
-    }
-
-    if (this.categorySubscription) {
-      this.categorySubscription.unsubscribe();
-    }
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }

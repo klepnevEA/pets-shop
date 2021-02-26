@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { IPet } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/services/product.service';
 
@@ -14,6 +15,7 @@ export class AddProductPageComponent implements OnInit {
   public form!: FormGroup;
   public submited: boolean = false;
   public pet!: IPet;
+  private subs: Subscriptions = {};
 
   constructor(public petService: ProductService) {}
 
@@ -43,7 +45,7 @@ export class AddProductPageComponent implements OnInit {
       date: new Date(),
     };
 
-    this.petService.addPet(this.pet).subscribe((res) => {
+    this.subs.addPetSubscription = this.petService.addPet(this.pet).subscribe((res) => {
       this.form.reset();
       this.submited = false;
       console.log('Животное добавлено');
@@ -91,4 +93,8 @@ export class AddProductPageComponent implements OnInit {
       ],
     ],
   };
+
+  ngOnDestroy() {
+    SubscriptionHelper.unsubscribe(this.subs);
+  }
 }

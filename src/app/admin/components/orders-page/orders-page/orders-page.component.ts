@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { CartService } from 'src/app/shared/services/cart.service';
 @Component({
   selector: 'app-orders-page',
@@ -8,7 +8,7 @@ import { CartService } from 'src/app/shared/services/cart.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPageComponent implements OnInit {
-  private getOrdersSubscription!: Subscription;
+  private subs: Subscriptions = {};
 
   constructor(public cartService: CartService) {}
 
@@ -17,14 +17,12 @@ export class OrdersPageComponent implements OnInit {
   }
 
   getAllOrders() {
-    this.getOrdersSubscription = this.cartService.getOrders().subscribe((res) => {
+    this.subs.getOrdersSubscription = this.cartService.getOrders().subscribe((res) => {
       this.cartService.orders$.next(res);
     });
   }
 
   ngOnDestroy() {
-    if (this.getOrdersSubscription) {
-      this.getOrdersSubscription.unsubscribe();
-    }
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }

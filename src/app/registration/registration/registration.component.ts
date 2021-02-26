@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { IUser } from 'src/app/shared/interfaces';
 import { UserService } from 'src/app/shared/services/users.service';
 
@@ -14,10 +14,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public dataUser!: IUser;
 
-  private sendSubscription!: Subscription;
+  private subs: Subscriptions = {};
 
   constructor(private userService: UserService) {
-    this.sendSubscription = this.userService.dataUser$.subscribe((res) => {
+    this.subs.sendSubscription = this.userService.dataUser$.subscribe((res) => {
       this.submited = false;
       this.dataUser = res;
     });
@@ -52,8 +52,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sendSubscription) {
-      this.sendSubscription.unsubscribe();
-    }
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }

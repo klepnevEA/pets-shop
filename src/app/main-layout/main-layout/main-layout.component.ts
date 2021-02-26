@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { UserService } from 'src/app/shared/services/users.service';
 
@@ -14,19 +14,18 @@ export class MainLayoutComponent implements OnInit {
   public userName!: string;
   public cartCount: number = 0;
 
-  private sendSubscription!: Subscription;
-  private petSubscription!: Subscription;
+  private subs: Subscriptions = {};
 
   constructor(
     public petService: ProductService,
     public userService: UserService,
     private router: Router,
   ) {
-    this.sendSubscription = this.userService.dataUser$.subscribe((res) => {
+    this.subs.sendSubscription = this.userService.dataUser$.subscribe((res) => {
       this.userName = res.name;
     });
 
-    this.petSubscription = this.petService.petsCartArray$.subscribe((res) => {
+    this.subs.petSubscription = this.petService.petsCartArray$.subscribe((res) => {
       this.cartCount = res.length;
     });
   }
@@ -45,12 +44,6 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.sendSubscription) {
-      this.sendSubscription.unsubscribe();
-    }
-
-    if (this.petSubscription) {
-      this.petSubscription.unsubscribe();
-    }
+    SubscriptionHelper.unsubscribe(this.subs);
   }
 }
