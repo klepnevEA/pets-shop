@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { OrdersPageComponent } from './orders-page.component';
 import { RouterModule } from '@angular/router';
+import { OrderTableComponent } from './orders-page/order-table/order-table.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { OrderTableComponent } from './order-table/order-table.component';
+import { OrdersPageComponent } from './orders-page/orders-page.component';
 
 @NgModule({
   declarations: [OrdersPageComponent, OrderTableComponent],

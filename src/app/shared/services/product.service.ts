@@ -12,7 +12,6 @@ export class ProductService {
   public pets$ = new BehaviorSubject<IPet[]>([]);
   public petsCartArray$ = new BehaviorSubject<IPet[]>([]);
   public categories = ['Котики', 'Собачки', 'Попугаи'];
-
   public category$ = new BehaviorSubject<string>('all');
 
   constructor(private http: HttpClient) {}

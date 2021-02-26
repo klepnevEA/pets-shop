@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
-import { AdminLayoutComponent } from './admin-layout.component';
+import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../shared/auth.guard';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { DashboardPageComponent } from './dashboard-page.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 @NgModule({
   declarations: [DashboardPageComponent],

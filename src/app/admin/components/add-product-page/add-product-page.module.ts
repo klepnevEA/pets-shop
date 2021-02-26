@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddProductPageComponent } from './add-product-page.component';
+import { AddProductPageComponent } from './add-product-page/add-product-page.component';
 
 @NgModule({
   declarations: [AddProductPageComponent],

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MainLayoutComponent } from './main-layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 const routes: Routes = [
   {
