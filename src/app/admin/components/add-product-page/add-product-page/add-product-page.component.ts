@@ -29,7 +29,7 @@ export class AddProductPageComponent implements OnInit {
     });
   }
 
-  addPet() {
+  public addPet(): void {
     if (this.form.invalid) {
       return;
     }
@@ -94,7 +94,7 @@ export class AddProductPageComponent implements OnInit {
     ],
   };
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

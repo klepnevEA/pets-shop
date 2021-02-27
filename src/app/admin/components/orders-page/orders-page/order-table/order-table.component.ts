@@ -8,7 +8,7 @@ import { CartService } from 'src/app/shared/services/cart.service';
   styleUrls: ['./order-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderTableComponent implements OnInit, OnDestroy {
+export class OrderTableComponent implements OnDestroy {
   @Input() order!: any;
 
   public active: boolean = false;
@@ -17,17 +17,19 @@ export class OrderTableComponent implements OnInit, OnDestroy {
 
   constructor(public cartService: CartService) {}
 
-  ngOnInit(): void {}
-
-  orderDone(id: string) {
+  public orderDone(id: string): void {
     this.subs.orderDonSubscription = this.cartService.orderDone(id).subscribe(() => {
-      this.subs.cartServiceSubscription = this.cartService.getOrders().subscribe((res) => {
-        this.cartService.orders$.next(res);
-      });
+      // this.subs.cartServiceSubscription = this.cartService.getOrders().subscribe((res) => {
+      //   this.cartService.orders$.next(res);
+      // });
     });
   }
 
-  ngOnDestroy() {
+  public openTable(): void {
+    this.active = !this.active
+  }
+
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

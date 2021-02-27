@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

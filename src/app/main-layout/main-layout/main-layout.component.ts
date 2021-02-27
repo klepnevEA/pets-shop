@@ -20,7 +20,11 @@ export class MainLayoutComponent implements OnInit {
     public petService: ProductService,
     public userService: UserService,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
+
     this.subs.sendSubscription = this.userService.dataUser$.subscribe((res) => {
       this.userName = res.name;
     });
@@ -30,11 +34,7 @@ export class MainLayoutComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
-  }
-
-  selectCategory(val: string) {
+  public selectCategory(val: string): void {
     this.router.navigate(['/']);
     if (val === 'card') {
       this.router.navigate(['/card']);
@@ -43,7 +43,7 @@ export class MainLayoutComponent implements OnInit {
     this.petService.chengeCategory(val);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

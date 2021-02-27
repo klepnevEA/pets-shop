@@ -36,11 +36,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  displayPets(str: string): void {
+  public displayPets(str: string): void {
     this.petsDisplay = str;
   }
 
-  removePet(id: any) {
+  public removePet(id: any): void {
     this.subs.removeSubscription = this.petService.removePet(id).subscribe(() => {
       this.petService.getPet().subscribe((res) => {
         this.pets$.next(res);
@@ -48,11 +48,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectCategory(val: string) {
+  public selectCategory(val: string): void {
     this.petService.chengeCategory(val);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

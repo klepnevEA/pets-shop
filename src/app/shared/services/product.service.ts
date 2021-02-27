@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IPet } from '../interfaces';
@@ -16,11 +16,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  chengeCategory(val: string) {
+  public chengeCategory(val: string): void {
     this.category$.next(val);
   }
 
-  addPet(pet: IPet) {
+  public addPet(pet: IPet): Observable<IPet> {
     return this.http.post(`${environment.fbDb}/pets.json`, pet).pipe(
       map((res: any) => {
         return {
@@ -32,7 +32,7 @@ export class ProductService {
     );
   }
 
-  getPet() {
+  public getPet(): Observable<IPet[]> {
     return this.http.get(`${environment.fbDb}/pets.json`).pipe(
       map((res: any) => {
         return Object.keys(res).map((key) => ({
@@ -44,7 +44,7 @@ export class ProductService {
     );
   }
 
-  getPetId(id: string) {
+  public getPetId(id: string): Observable<IPet> {
     return this.http.get(`${environment.fbDb}/pets/${id}.json`).pipe(
       map((res: any) => {
         return {
@@ -56,15 +56,15 @@ export class ProductService {
     );
   }
 
-  removePet(id: string) {
+  public removePet(id: string): Observable<any> {
     return this.http.delete(`${environment.fbDb}/pets/${id}.json`);
   }
 
-  editPet(pet: IPet) {
+  public editPet(pet: IPet): Observable<any> {
     return this.http.patch(`${environment.fbDb}/pets/${pet.id}.json`, pet);
   }
 
-  addToCart(pet: IPet): void {
+  public addToCart(pet: IPet): void {
     const petArr: IPet[] = this.petsCartArray$.getValue();
     let stop = true;
     petArr.forEach((item) => {
@@ -77,7 +77,7 @@ export class ProductService {
     }
   }
 
-  deleteFromCart(pet: IPet): void {
+  public deleteFromCart(pet: IPet): void {
     const petArr: IPet[] = this.petsCartArray$.getValue();
     petArr.forEach((item, index) => {
       if (item === pet) {

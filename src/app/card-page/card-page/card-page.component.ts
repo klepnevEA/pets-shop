@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/users.service';
@@ -52,7 +52,7 @@ export class CardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendOrder() {
+  public sendOrder(): void {
     if (this.form.invalid) {
       return;
     }
@@ -73,7 +73,7 @@ export class CardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  totalPrice(): void {
+  private totalPrice(): void {
     let price = 0;
     for (let i = 0; i < this.petsList.length; i++) {
       price += +this.petsList[i].price;
@@ -81,19 +81,19 @@ export class CardPageComponent implements OnInit, OnDestroy {
     this.price$.next(price);
   }
 
-  deleteFromCart(pet: IPet): void {
+  public deleteFromCart(pet: IPet): void {
     this.petService.deleteFromCart(pet);
   }
 
-  goBack(): void {
+  public goBack(): void {
     this.location.back();
   }
 
-  arrangeOrder(): void {
-    this.arrange$.next(true);
+  public arrangeOrder(val: boolean): void {
+    this.arrange$.next(val);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

@@ -16,13 +16,13 @@ export class OrdersPageComponent implements OnInit {
     this.getAllOrders();
   }
 
-  getAllOrders() {
+  private getAllOrders(): void {
     this.subs.getOrdersSubscription = this.cartService.getOrders().subscribe((res) => {
       this.cartService.orders$.next(res);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

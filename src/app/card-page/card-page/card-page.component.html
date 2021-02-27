@@ -42,12 +42,12 @@
     <button
       class="btn btn-danger"
       *ngIf="arrange$ | async; else cancellation"
-      (click)="arrange$.next(false)"
+      (click)="arrangeOrder(false)"
     >
       Передумать
     </button>
     <ng-template #cancellation>
-      <button class="btn btn-primary" (click)="arrange$.next(true)">Офорить заказ</button>
+      <button class="btn btn-primary" (click)="arrangeOrder(true)">Офорить заказ</button>
     </ng-template>
   </div>
 </div>

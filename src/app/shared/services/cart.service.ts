@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {  Subject } from 'rxjs';
+import {  Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IOrder } from '../interfaces';
@@ -14,7 +14,7 @@ export class CartService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addOrder(order: IOrder) {
+  public addOrder(order: IOrder): Observable<IOrder> {
     return this.http.post(`${environment.fbDb}/orders.json`, order).pipe(
       map((res: any) => {
         return {
@@ -26,7 +26,7 @@ export class CartService {
     );
   }
 
-  getOrders() {
+  public getOrders(): Observable<IOrder[]> {
     return this.http.get(`${environment.fbDb}/orders.json`).pipe(
       map((res: any) => {
         return Object.keys(res).map((key) => ({
@@ -38,7 +38,7 @@ export class CartService {
     );
   }
 
-  orderDone(id: string) {
+  public orderDone(id: string): Observable<any> {
     return this.http.delete(`${environment.fbDb}/orders/${id}.json`);
   }
 }

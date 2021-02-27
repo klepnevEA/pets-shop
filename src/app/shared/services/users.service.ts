@@ -18,15 +18,15 @@ export class UserService {
       if (res.name) {
         this.authUser$.next(true);
       }
-    }); /*#toDo вырезать это все из конструктора*/
+    });
   }
 
-  sendUser(user: IUser) {
+  public sendUser(user: IUser): void {
     localStorage.setItem('users', JSON.stringify(user));
     this.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void  {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

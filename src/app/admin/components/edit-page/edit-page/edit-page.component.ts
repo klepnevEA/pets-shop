@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { IPet } from 'src/app/shared/interfaces';
 import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
@@ -34,7 +34,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subs.routeSubscription = this.route.params.subscribe((res) => {
       this.petId = res['id'];
       this.subs.productSubscription = this.petService.getPetId(res['id']).subscribe((res) => {
@@ -50,13 +50,13 @@ export class EditPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  removePet(id: any) {
+  public removePet(id: any): void {
     this.subs.removeSubscription = this.petService.removePet(id).subscribe(() => {
       this.router.navigate(['/admin', 'dashboard']);
     });
   }
 
-  goBack() {
+  public goBack(): void {
     this.router.navigate(['/admin', 'dashboard']);
   }
 
@@ -102,7 +102,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
     ],
   };
 
-  editPet() {
+  public editPet(): void {
     if (this.petForm.invalid) {
       return;
     }
@@ -127,7 +127,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

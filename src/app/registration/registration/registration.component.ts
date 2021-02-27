@@ -16,15 +16,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   private subs: Subscriptions = {};
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
+
     this.subs.sendSubscription = this.userService.dataUser$.subscribe((res) => {
       this.submited = false;
       this.dataUser = res;
     });
-  }
 
-  ngOnInit(): void {
-    this.userService.dataUser$.next(JSON.parse(localStorage.getItem('users') || '{}'));
     this.form = new FormGroup({
       name: new FormControl(this.dataUser.name, [Validators.required]),
       phone: new FormControl(this.dataUser.phone, [Validators.required]),
@@ -33,7 +34,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendUser() {
+  public sendUser(): void {
     if (this.form.invalid) {
       return;
     }
@@ -51,7 +52,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.userService.sendUser(this.dataUser);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     SubscriptionHelper.unsubscribe(this.subs);
   }
 }

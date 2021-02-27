@@ -14,7 +14,7 @@ export class AuthService {
 
   public isAuth!: boolean;
 
-  private setToken(response: IAuthResponse | any) {
+  private setToken(response: IAuthResponse | any): void {
     if (response) {
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
       localStorage.setItem('firebase-token', response.idToken);
@@ -34,14 +34,14 @@ export class AuthService {
     return localStorage.getItem('firebase-token');
   }
 
-  public logout() {
+  public logout(): void {
     this.setToken(null);
     localStorage.clear();
     this.router.navigate(['/admin', 'login']);
     this.isAuth = !!localStorage.getItem('isAuth');
   }
 
-  private showError(err: HttpErrorResponse) {
+  private showError(err: HttpErrorResponse): void {
     console.log(err);
   }
 
