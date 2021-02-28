@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { SubscriptionHelper, Subscriptions } from 'src/app/shared/helpers/subscription.helper';
 import { CartService } from 'src/app/shared/services/cart.service';
 
@@ -18,11 +19,15 @@ export class OrderTableComponent implements OnDestroy {
   constructor(public cartService: CartService) {}
 
   public orderDone(id: string): void {
-    this.subs.orderDonSubscription = this.cartService.orderDone(id).subscribe(() => {
-      // this.subs.cartServiceSubscription = this.cartService.getOrders().subscribe((res) => {
-      //   this.cartService.orders$.next(res);
-      // });
-    });
+    this.cartService.orderDone(id)
+    .pipe(
+      switchMap(() => {
+        return this.cartService.getOrders()
+      })
+    )
+    .subscribe((res) => {
+      this.cartService.orders$.next(res);
+    })
   }
 
   public openTable(): void {
